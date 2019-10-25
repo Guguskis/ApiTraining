@@ -1,10 +1,17 @@
 package lt.liutikas.paymentsapi.controller;
 
-import lt.liutikas.paymentsapi.service.IPaymentsService;
+import lt.liutikas.paymentsapi.service.PaymentsService;
 import lt.liutikas.paymentsapi.model.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -13,25 +20,22 @@ import java.util.List;
 public class PaymentsController {
 
     @Autowired
-    private IPaymentsService service;
+    private PaymentsService service;
 
     @GetMapping
     public List<Payment> findAll() {
-        var payments = service.findAll();
-        return payments;
+        return service.findAll();
     }
 
     @GetMapping("/{id}")
     public Payment find(@PathVariable long id) {
-        var payment = service.find(id);
-        return payment;
+        return service.find(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Payment create(@RequestBody Payment payment) {
-        var created = service.save(payment);
-        return created;
+        return service.save(payment);
     }
 
     @DeleteMapping("/{id}")

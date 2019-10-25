@@ -2,6 +2,9 @@ package lt.liutikas.paymentsapi.repository;
 
 import lt.liutikas.paymentsapi.model.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface IPaymentsRepository extends JpaRepository<Payment, Long> {
+@Repository
+public interface PaymentsRepository extends JpaRepository<Payment, Long> {
+
 }

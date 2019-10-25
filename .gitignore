@@ -29,3 +29,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Java ###
+.jar
+
+### Something strange ###
+.cmd

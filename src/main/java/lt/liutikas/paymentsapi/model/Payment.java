@@ -1,20 +1,21 @@
 package lt.liutikas.paymentsapi.model;
 
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
-import java.util.Date;
-
-import static javax.persistence.TemporalType.TIMESTAMP;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @Entity
 public class Payment {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     private long amount;
-    @Temporal(TIMESTAMP)
-    private Date created = new Date();
+    @CreationTimestamp
+    private LocalDateTime created;
 
     public long getId() {
         return id;
@@ -32,9 +33,7 @@ public class Payment {
         this.amount = amount;
     }
 
-    public String getDateTime() {
-        //Todo this is probably wrong
-        return created.toString();
+    public LocalDateTime getCreated() {
+        return created;
     }
-
 }
