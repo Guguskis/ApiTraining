@@ -4,10 +4,11 @@ import lt.liutikas.paymentsapi.repository.PaymentsRepository;
 import lt.liutikas.paymentsapi.model.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
+@Service
 public class DefaultPaymentsService implements PaymentsService {
 
     private PaymentsRepository repository;

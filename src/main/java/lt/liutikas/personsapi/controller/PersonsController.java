@@ -1,8 +1,7 @@
-package lt.liutikas.paymentsapi.controller;
+package lt.liutikas.personsapi.controller;
 
-import lt.liutikas.paymentsapi.model.Payment;
-import lt.liutikas.paymentsapi.service.PaymentsService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lt.liutikas.personsapi.model.Person;
+import lt.liutikas.personsapi.service.DefaultPersonsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,29 +15,24 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/payments")
-public class PaymentsController {
+@RequestMapping("/api/persons")
+public class PersonsController {
 
-    private PaymentsService service;
+    private DefaultPersonsService service;
 
-    public PaymentsController(PaymentsService service) {
+    public PersonsController(DefaultPersonsService service) {
         this.service = service;
     }
 
     @GetMapping
-    public List<Payment> findAll() {
+    public List<Person> findAll() {
         return service.findAll();
-    }
-
-    @GetMapping("/{id}")
-    public Payment find(@PathVariable long id) {
-        return service.find(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Payment create(@RequestBody Payment payment) {
-        return service.save(payment);
+    public Person create(@RequestBody Person person) {
+        return service.create(person);
     }
 
     @DeleteMapping("/{id}")
