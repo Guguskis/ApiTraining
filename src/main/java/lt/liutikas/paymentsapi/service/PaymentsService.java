@@ -8,9 +8,9 @@ public interface PaymentsService {
 
     List<Payment> findAll();
 
-    Payment find(long id);
-
     Payment save(Payment payment);
 
     void delete(long id);
+
+    List<Payment> findPersonPayments(long personId);
 }

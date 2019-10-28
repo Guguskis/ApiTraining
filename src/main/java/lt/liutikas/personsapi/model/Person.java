@@ -1,7 +1,5 @@
 package lt.liutikas.personsapi.model;
 
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +12,14 @@ public class Person {
     private long id;
     private long officialId;
     private String name;
+
+    public Person() {
+    }
+
+    public Person(long officialId, String name) {
+        this.officialId = officialId;
+        this.name = name;
+    }
 
     public long getId() {
         return id;

@@ -1,21 +1,25 @@
 package lt.liutikas.paymentsapi.service;
 
-import lt.liutikas.paymentsapi.repository.PaymentsRepository;
 import lt.liutikas.paymentsapi.model.Payment;
+import lt.liutikas.paymentsapi.repository.PaymentsRepository;
+import lt.liutikas.personsapi.controller.PersonsController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DefaultPaymentsService implements PaymentsService {
 
     private PaymentsRepository repository;
+    private PersonsController personsController;
 
     @Autowired
-    public DefaultPaymentsService(PaymentsRepository repository) {
+    public DefaultPaymentsService(PaymentsRepository repository, PersonsController personsController) {
         this.repository = repository;
+        this.personsController = personsController;
+
     }
 
     @Override
@@ -25,15 +29,9 @@ public class DefaultPaymentsService implements PaymentsService {
     }
 
     @Override
-    public Payment find(long id){
-        var payment = repository.findById(id).get();
-        return payment;
-    }
-
-    @Override
     public Payment save(Payment payment) {
-        var created = repository.save(payment);
-        return created;
+        var person = personsController.find(payment.getPersonId());
+        return repository.save(payment);
     }
 
     @Override
@@ -43,6 +41,16 @@ public class DefaultPaymentsService implements PaymentsService {
         if (payment != null) {
             repository.delete(payment);
         }
+    }
+
+    @Override
+    public List<Payment> findPersonPayments(long personId) {
+        var personPayments = repository
+                .findAll()
+                .stream()
+                .filter(payment -> payment.getPersonId() == personId)
+                .collect(Collectors.toList());
+        return personPayments;
     }
 
 }

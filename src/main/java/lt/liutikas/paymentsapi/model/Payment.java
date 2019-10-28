@@ -14,8 +14,25 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     private long amount;
+    private long personId;
     @CreationTimestamp
     private LocalDateTime created;
+
+    public Payment(long amount, long personId) {
+        this.amount = amount;
+        this.personId = personId;
+    }
+
+    public Payment() {
+    }
+
+    public long getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(long personId) {
+        this.personId = personId;
+    }
 
     public long getId() {
         return id;

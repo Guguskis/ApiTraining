@@ -2,7 +2,6 @@ package lt.liutikas.paymentsapi.controller;
 
 import lt.liutikas.paymentsapi.model.Payment;
 import lt.liutikas.paymentsapi.service.PaymentsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,16 +22,15 @@ public class PaymentsController {
 
     public PaymentsController(PaymentsService service) {
         this.service = service;
+        service.save(new Payment(555, 1));
+        service.save(new Payment(33, 1));
+        service.save(new Payment(10, 2));
+        service.save(new Payment(332, 3));
     }
 
     @GetMapping
     public List<Payment> findAll() {
         return service.findAll();
-    }
-
-    @GetMapping("/{id}")
-    public Payment find(@PathVariable long id) {
-        return service.find(id);
     }
 
     @PostMapping
@@ -45,5 +43,10 @@ public class PaymentsController {
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable("id") long id) {
         service.delete(id);
+    }
+
+    @GetMapping("/{personId}")
+    public List<Payment> findPersonPayments(@PathVariable("personId") long personId) {
+        return service.findPersonPayments(personId);
     }
 }
