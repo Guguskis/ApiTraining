@@ -1,6 +1,5 @@
 package lt.liutikas.personsapi.service;
 
-import lt.liutikas.paymentsapi.model.Payment;
 import lt.liutikas.personsapi.exception.PersonNotFoundException;
 import lt.liutikas.personsapi.model.Person;
 import lt.liutikas.personsapi.repository.PersonsRepository;
@@ -30,30 +29,30 @@ public class DefaultPersonsService implements PersonsService {
     }
 
     @Override
-    public void delete(long id) {
+    public void delete(long id) throws PersonNotFoundException {
         if (personExists(id)) {
-            var personToDelete = getPerson(id);
+            var personToDelete = find(id);
             repository.delete(personToDelete);
         }
     }
 
-    private Person getPerson(long id) {
-        return repository.findById(id).get();
-    }
-
     @Override
     public Person find(long id) throws PersonNotFoundException {
-        var personToFind = repository.findById(id);
-        if (personToFind.isPresent()) {
-            return personToFind.get();
+        Person person = repository.findByOfficialId(id);
+
+        if (person != null) {
+            return person;
         } else {
             throw new PersonNotFoundException();
         }
     }
 
     private boolean personExists(long id) {
-        return repository.findById(id).isPresent();
+        try {
+            find(id);
+            return true;
+        } catch (PersonNotFoundException e) {
+            return false;
+        }
     }
-
-
 }

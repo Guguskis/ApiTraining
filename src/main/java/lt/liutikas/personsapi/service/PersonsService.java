@@ -13,7 +13,7 @@ public interface PersonsService {
 
     Person save(Person person);
 
-    void delete(long id);
+    void delete(long id) throws PersonNotFoundException;
 
     Person find(long id) throws PersonNotFoundException;
 

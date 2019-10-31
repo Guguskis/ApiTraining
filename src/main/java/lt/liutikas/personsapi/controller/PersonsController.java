@@ -24,10 +24,10 @@ public class PersonsController {
 
     public PersonsController(DefaultPersonsService service) {
         this.service = service;
-        service.save(new Person(5, "Matas"));
-        service.save(new Person(1, "Jokubas"));
-        service.save(new Person(2, "Markas"));
-        service.save(new Person(3, "Lukas"));
+        create(new Person(5, "Matas"));
+        create(new Person(1, "Jokubas"));
+        create(new Person(2, "Markas"));
+        create(new Person(3, "Lukas"));
     }
 
     @GetMapping
@@ -53,7 +53,11 @@ public class PersonsController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable("id") long id) {
-        service.delete(id);
+        try {
+            service.delete(id);
+        } catch (PersonNotFoundException e) {
+            throw new ResponseStatusException((HttpStatus.NOT_FOUND), "Provide correct Person ID", e);
+        }
     }
 
 }

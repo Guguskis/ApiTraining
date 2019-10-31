@@ -3,6 +3,7 @@ package lt.liutikas.paymentsapi.service;
 import lt.liutikas.paymentsapi.model.Payment;
 import lt.liutikas.paymentsapi.repository.PaymentsRepository;
 import lt.liutikas.personsapi.controller.PersonsController;
+import lt.liutikas.personsapi.exception.PersonNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,9 +30,14 @@ public class DefaultPaymentsService implements PaymentsService {
     }
 
     @Override
-    public Payment save(Payment payment) {
-        var person = personsController.find(payment.getPersonId());
+    public Payment save(Payment payment) throws PersonNotFoundException {
+        personsController.find(payment.getPersonId());
         return repository.save(payment);
+//        try{
+//        }catch(Exception e){
+//            //if not found throw new error that person does not exist
+//            throw new PersonN
+//        }
     }
 
     @Override
