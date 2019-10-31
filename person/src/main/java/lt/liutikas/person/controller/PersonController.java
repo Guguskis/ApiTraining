@@ -1,8 +1,8 @@
-package liutikas.person.controller;
+package lt.liutikas.person.controller;
 
-import liutikas.person.model.Person;
-import liutikas.person.service.DefaultPersonService;
-import liutikas.person.exception.PersonNotFoundException;
+import lt.liutikas.person.model.Person;
+import lt.liutikas.person.service.DefaultPersonService;
+import lt.liutikas.person.exception.PersonNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;

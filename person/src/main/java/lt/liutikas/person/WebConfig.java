@@ -1,4 +1,4 @@
-package liutikas.person;
+package lt.liutikas.person;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

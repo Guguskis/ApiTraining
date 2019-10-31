@@ -1,4 +1,4 @@
-package liutikas.person.exception;
+package lt.liutikas.person.exception;
 
 public class PersonNotFoundException extends Exception {
 

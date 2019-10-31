@@ -1,6 +1,6 @@
-package liutikas.person.repository;
+package lt.liutikas.person.repository;
 
-import liutikas.person.model.Person;
+import lt.liutikas.person.model.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

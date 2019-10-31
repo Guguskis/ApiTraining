@@ -1,8 +1,8 @@
-package liutikas.person.service;
+package lt.liutikas.person.service;
 
-import liutikas.person.model.Person;
-import liutikas.person.repository.PersonRepository;
-import liutikas.person.exception.PersonNotFoundException;
+import lt.liutikas.person.model.Person;
+import lt.liutikas.person.repository.PersonRepository;
+import lt.liutikas.person.exception.PersonNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

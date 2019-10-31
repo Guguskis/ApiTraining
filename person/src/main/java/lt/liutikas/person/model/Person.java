@@ -1,4 +1,4 @@
-package liutikas.person.model;
+package lt.liutikas.person.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

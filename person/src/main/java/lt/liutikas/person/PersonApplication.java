@@ -1,4 +1,4 @@
-package liutikas.person;
+package lt.liutikas.person;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

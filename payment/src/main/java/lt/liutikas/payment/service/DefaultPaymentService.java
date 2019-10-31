@@ -1,11 +1,11 @@
-package liutikas.payment.service;
+package lt.liutikas.payment.service;
 
-import liutikas.payment.model.Payment;
-import liutikas.person.controller.PersonController;
-import liutikas.person.exception.PersonNotFoundException;
-import liutikas.payment.repository.PaymentRepository;
+import lt.liutikas.payment.model.Payment;
+import lt.liutikas.payment.repository.PaymentRepository;
+import lt.liutikas.person.exception.PersonNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,35 +14,29 @@ import java.util.stream.Collectors;
 public class DefaultPaymentService implements PaymentService {
 
     private PaymentRepository repository;
-    private PersonController personsController;
+    private RestTemplate restTemplate;
 
     @Autowired
-    public DefaultPaymentService(PaymentRepository repository, PersonController personsController) {
+    public DefaultPaymentService(PaymentRepository repository, RestTemplate restTemplate) {
         this.repository = repository;
-        this.personsController = personsController;
-
+        this.restTemplate = restTemplate;
     }
 
     @Override
     public List<Payment> findAll() {
-        var payments = (List<Payment>) repository.findAll();
-        return payments;
+        return repository.findAll();
     }
 
     @Override
     public Payment save(Payment payment) throws PersonNotFoundException {
-        personsController.find(payment.getPersonId());
+        //Todo add restTemplate call to person api to check if person exists
         return repository.save(payment);
-//        try{
-//        }catch(Exception e){
-//            //if not found throw new error that person does not exist
-//            throw new PersonN
-//        }
+
     }
 
     @Override
     public void delete(long id) {
-        var payment = repository.findById(id).get();
+        Payment payment = repository.findById(id).get();
 
         if (payment != null) {
             repository.delete(payment);
@@ -51,12 +45,11 @@ public class DefaultPaymentService implements PaymentService {
 
     @Override
     public List<Payment> findPersonPayments(long personId) {
-        var personPayments = repository
+        return repository
                 .findAll()
                 .stream()
                 .filter(payment -> payment.getPersonId() == personId)
                 .collect(Collectors.toList());
-        return personPayments;
     }
 
 }

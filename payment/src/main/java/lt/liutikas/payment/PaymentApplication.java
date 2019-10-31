@@ -1,9 +1,9 @@
-package liutikas.payment;
+package lt.liutikas.payment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = "lt.liutikas")
+@SpringBootApplication
 public class PaymentApplication {
     public static void main(String[] args) {
         SpringApplication.run(PaymentApplication.class, args);

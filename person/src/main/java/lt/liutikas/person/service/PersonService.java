@@ -1,7 +1,7 @@
-package liutikas.person.service;
+package lt.liutikas.person.service;
 
-import liutikas.person.exception.PersonNotFoundException;
-import liutikas.person.model.Person;
+import lt.liutikas.person.exception.PersonNotFoundException;
+import lt.liutikas.person.model.Person;
 
 import java.util.List;
 

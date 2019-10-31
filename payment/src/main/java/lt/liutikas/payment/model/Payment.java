@@ -1,4 +1,4 @@
-package liutikas.payment.model;
+package lt.liutikas.payment.model;
 
 import org.hibernate.annotations.CreationTimestamp;
 
