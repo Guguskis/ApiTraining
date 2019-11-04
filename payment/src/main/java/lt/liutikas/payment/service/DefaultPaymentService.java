@@ -44,11 +44,10 @@ public class DefaultPaymentService implements PaymentService {
             if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
                 throw new PersonNotFoundException();
             }
+            e.printStackTrace();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override
