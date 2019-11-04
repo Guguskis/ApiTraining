@@ -3,10 +3,16 @@ package lt.liutikas.payment.service;
 import lt.liutikas.payment.model.Payment;
 import lt.liutikas.payment.repository.PaymentRepository;
 import lt.liutikas.person.exception.PersonNotFoundException;
+import lt.liutikas.person.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,9 +34,20 @@ public class DefaultPaymentService implements PaymentService {
     }
 
     @Override
-    public Payment save(Payment payment) throws PersonNotFoundException {
-        //Todo add restTemplate call to person api to check if person exists
-        return repository.save(payment);
+    public void save(Payment payment) throws PersonNotFoundException {
+        try {
+            URI getPersonUri = new URI("http://localhost:8082/api/persons/" + payment.getPersonId());
+            ResponseEntity<Person> response = restTemplate.getForEntity(getPersonUri, Person.class);
+
+            repository.save(payment);
+        } catch (HttpStatusCodeException e) {
+            if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
+                throw new PersonNotFoundException();
+            }
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
 
     }
 

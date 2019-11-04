@@ -9,7 +9,7 @@ public interface PaymentService {
 
     List<Payment> findAll();
 
-    Payment save(Payment payment) throws PersonNotFoundException;
+    void save(Payment payment) throws PersonNotFoundException;
 
     void delete(long id);
 

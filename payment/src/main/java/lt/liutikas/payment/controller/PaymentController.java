@@ -3,6 +3,7 @@ package lt.liutikas.payment.controller;
 import lt.liutikas.payment.model.Payment;
 import lt.liutikas.payment.service.PaymentService;
 import lt.liutikas.person.exception.PersonNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,12 +23,9 @@ public class PaymentController {
 
     private PaymentService service;
 
+    @Autowired
     public PaymentController(PaymentService service) {
         this.service = service;
-        create(new Payment(555, 1));
-        create(new Payment(33, 1));
-        create(new Payment(10, 2));
-        create(new Payment(332, 2));
     }
 
     @GetMapping
@@ -37,9 +35,9 @@ public class PaymentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Payment create(@RequestBody Payment payment) {
+    public void create(@RequestBody Payment payment) {
         try {
-            return service.save(payment);
+            service.save(payment);
         } catch (PersonNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Person not found");
         }
