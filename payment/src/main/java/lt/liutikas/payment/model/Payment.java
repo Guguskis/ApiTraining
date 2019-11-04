@@ -18,6 +18,7 @@ public class Payment {
     @CreationTimestamp
     private LocalDateTime created;
 
+    // MM: this class constructor is unused. You can remove it.
     public Payment(long amount, long personId) {
         this.amount = amount;
         this.personId = personId;

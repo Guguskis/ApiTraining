@@ -24,6 +24,9 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
+        <!-- MM: using maven multi module architecture you should not to have this dependency.
+         Remove the dependency from here and make commons maven module. Put Person class to new common module and add here
+         dependency to common module -->
         <dependency>
             <groupId>lt.liutikas</groupId>
             <artifactId>person</artifactId>

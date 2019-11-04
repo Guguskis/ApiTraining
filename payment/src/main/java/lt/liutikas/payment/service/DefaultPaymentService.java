@@ -36,6 +36,8 @@ public class DefaultPaymentService implements PaymentService {
     @Override
     public void save(Payment payment) throws PersonNotFoundException {
         try {
+            // MM: here you should send person official ID to PaymentsAPI and here make a call to PersonsAPI to get person id
+            // Use this person id storing new payment to DB
             URI getPersonUri = new URI("http://localhost:8082/api/persons/" + payment.getPersonId());
             ResponseEntity<Person> response = restTemplate.getForEntity(getPersonUri, Person.class);
 
@@ -44,6 +46,7 @@ public class DefaultPaymentService implements PaymentService {
             if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
                 throw new PersonNotFoundException();
             }
+            // MM: you could yse logging mechanism. Example - Logback: https://www.baeldung.com/logback
             e.printStackTrace();
         } catch (URISyntaxException e) {
             e.printStackTrace();
@@ -55,7 +58,7 @@ public class DefaultPaymentService implements PaymentService {
         Payment payment = repository.findById(id).get();
 
         if (payment != null) {
-            repository.delete(payment);
+            repository.delete(payment); // MM: just delete by id
         }
     }
 

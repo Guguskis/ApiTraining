@@ -49,6 +49,7 @@ public class PersonController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Person create(@RequestBody Person person) {
+        // MM: what if person with given official id already exists in DB?
         return service.save(person);
     }
 
