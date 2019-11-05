@@ -1,8 +1,9 @@
 package lt.liutikas.person.controller;
 
+import lt.liutikas.person.exception.PersonAlreadyExistsException;
+import lt.liutikas.person.exception.PersonNotFoundException;
 import lt.liutikas.person.model.Person;
 import lt.liutikas.person.service.DefaultPersonService;
-import lt.liutikas.person.exception.PersonNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -48,19 +49,18 @@ public class PersonController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Person create(@RequestBody Person person) {
-        // MM: what if person with given official id already exists in DB?
-        return service.save(person);
+    public void create(@RequestBody Person person) {
+        try {
+            service.create(person);
+        } catch (PersonAlreadyExistsException e) {
+            throw new ResponseStatusException((HttpStatus.BAD_REQUEST), "Provide Person with unused official ID", e);
+        }
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable("id") long id) {
-        try {
-            service.delete(id);
-        } catch (PersonNotFoundException e) {
-            throw new ResponseStatusException((HttpStatus.NOT_FOUND), "Provide correct Person ID", e);
-        }
+        service.delete(id);
     }
 
 }

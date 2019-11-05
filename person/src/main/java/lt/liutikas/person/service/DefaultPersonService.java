@@ -1,8 +1,9 @@
 package lt.liutikas.person.service;
 
+import lt.liutikas.person.exception.PersonAlreadyExistsException;
+import lt.liutikas.person.exception.PersonNotFoundException;
 import lt.liutikas.person.model.Person;
 import lt.liutikas.person.repository.PersonRepository;
-import lt.liutikas.person.exception.PersonNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,21 +25,19 @@ public class DefaultPersonService implements PersonService {
     }
 
     @Override
-    public Person save(Person person) {
-        return repository.save(person);
+    public void create(Person person) throws PersonAlreadyExistsException {
+        Person personFound = repository.findByOfficialId(person.getOfficialId());
+
+        if (personFound == null) {
+            repository.save(person);
+        } else {
+            throw new PersonAlreadyExistsException();
+        }
     }
 
     @Override
-    public void delete(long id) throws PersonNotFoundException {
-        if (personExists(id)) {
-            // MM: use Person type instead of var
-            var personToDelete = find(id);
-            repository.delete(personToDelete);
-        }
-        /*
-        MM: In this method you make 3 calls to DB: firstly check if exists in DB, then get from DB and finally delete from DB.
-        You can just use repository.deleteById(id);
-         */
+    public void delete(long id) {
+        repository.deleteById(id);
     }
 
     @Override
@@ -49,15 +48,6 @@ public class DefaultPersonService implements PersonService {
             return person;
         } else {
             throw new PersonNotFoundException();
-        }
-    }
-
-    private boolean personExists(long id) {
-        try {
-            find(id);
-            return true;
-        } catch (PersonNotFoundException e) {
-            return false;
         }
     }
 }
