@@ -36,6 +36,8 @@ public class DefaultPaymentService implements PaymentService {
     @Override
     public void save(Payment payment) throws PersonNotFoundException {
         try {
+            // Payment.personId ir Person.id
+            // Send Payment.personId to PersonAPI. Then retrieve the PK of person
             // MM: here you should send person official ID to PaymentsAPI and here make a call to PersonsAPI to get person id
             // Use this person id storing new payment to DB
             URI getPersonUri = new URI("http://localhost:8082/api/persons/" + payment.getPersonId());
@@ -55,11 +57,7 @@ public class DefaultPaymentService implements PaymentService {
 
     @Override
     public void delete(long id) {
-        Payment payment = repository.findById(id).get();
-
-        if (payment != null) {
-            repository.delete(payment); // MM: just delete by id
-        }
+        repository.deleteById(id);
     }
 
     @Override
