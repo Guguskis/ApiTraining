@@ -15,6 +15,10 @@
 
     <properties>
         <spring.version>2.2.0.RELEASE</spring.version>
+        <h2.version>1.4.200</h2.version>
+        <jaxb-api.version>2.3.1</jaxb-api.version>
+        <junit-jupiter.version>5.5.2</junit-jupiter.version>
+        <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
@@ -34,8 +38,7 @@
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
-                <!-- MM: move version to properties -->
-                <version>1.4.200</version>
+                <version>${h2.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -45,8 +48,7 @@
             <dependency>
                 <groupId>javax.xml.bind</groupId>
                 <artifactId>jaxb-api</artifactId>
-                <!-- MM: move version to properties -->
-                <version>2.3.1</version>
+                <version>${jaxb-api.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -63,15 +65,13 @@
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-engine</artifactId>
-                <!-- MM: move version to properties -->
-                <version>5.5.2</version>
+                <version>${junit-jupiter.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter</artifactId>
-                <!-- MM: move version to properties -->
-                <version>5.5.2</version>
+                <version>${junit-jupiter.version}</version>
                 <scope>test</scope>
             </dependency>
 
@@ -95,8 +95,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <!-- MM: move version to properties -->
-                <version>3.0.0-M3</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <trimStackTrace>false</trimStackTrace>
                 </configuration>
