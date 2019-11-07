@@ -41,8 +41,8 @@ public class DefaultPersonService implements PersonService {
     }
 
     @Override
-    public Person find(long id) throws PersonNotFoundException {
-        Person person = repository.findByOfficialId(id);
+    public Person find(long officialId) throws PersonNotFoundException {
+        Person person = repository.findByOfficialId(officialId);
 
         if (person != null) {
             return person;

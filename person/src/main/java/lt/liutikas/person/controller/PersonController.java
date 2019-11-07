@@ -38,12 +38,12 @@ public class PersonController {
         return service.findAll();
     }
 
-    @GetMapping("/{id}")
-    public Person find(@PathVariable("id") long id) {
+    @GetMapping("/{officialId}")
+    public Person find(@PathVariable("officialId") long officialId) {
         try {
-            return service.find(id);
+            return service.find(officialId);
         } catch (PersonNotFoundException e) {
-            throw new ResponseStatusException((HttpStatus.NOT_FOUND), "Provide correct Person ID", e);
+            throw new ResponseStatusException((HttpStatus.NOT_FOUND), "Provide correct Person official ID", e);
         }
     }
 
