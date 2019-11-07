@@ -1,5 +1,6 @@
 package lt.liutikas.payment.service;
 
+import lt.liutikas.model.CreatePaymentDTO;
 import lt.liutikas.model.Payment;
 import lt.liutikas.exception.PersonNotFoundException;
 
@@ -9,7 +10,7 @@ public interface PaymentService {
 
     List<Payment> findAll();
 
-    void save(Payment payment) throws PersonNotFoundException;
+    void save(CreatePaymentDTO payment) throws PersonNotFoundException;
 
     void delete(long id);
 

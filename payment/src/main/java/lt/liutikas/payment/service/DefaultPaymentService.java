@@ -1,5 +1,6 @@
 package lt.liutikas.payment.service;
 
+import lt.liutikas.model.CreatePaymentDTO;
 import lt.liutikas.model.Payment;
 import lt.liutikas.model.Person;
 import lt.liutikas.payment.repository.PaymentRepository;
@@ -34,20 +35,18 @@ public class DefaultPaymentService implements PaymentService {
     }
 
     @Override
-    public void save(Payment payment) throws PersonNotFoundException {
+    public void save(CreatePaymentDTO paymentDTO) throws PersonNotFoundException {
         try {
-            // Payment.personId ir Person.id
-            // I need to create PaymentDTO that accepts officialId
-            // Then I need to convert that officialId to id (PK of person)
-            // And then continue
-            // MM: here you should send person official ID to PaymentsAPI and here make a call to PersonsAPI to get person id
-            // Use this person id storing new payment to DB
-            URI getPersonUri = new URI("http://localhost:8082/api/persons/" + payment.getPersonId());
+            URI getPersonUri = new URI("http://localhost:8082/api/persons/" + paymentDTO.getPersonOfficialId());
             ResponseEntity<Person> response = restTemplate.getForEntity(getPersonUri, Person.class);
+
+            Payment payment = new Payment(response.getBody().getId(), paymentDTO.getAmount());
 
             repository.save(payment);
         } catch (HttpStatusCodeException e) {
             if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
+                // Todo create a new person if it does not exist
+                // Q: will I need to return the created person in controller?
                 throw new PersonNotFoundException();
             }
             // MM: you could yse logging mechanism. Example - Logback: https://www.baeldung.com/logback

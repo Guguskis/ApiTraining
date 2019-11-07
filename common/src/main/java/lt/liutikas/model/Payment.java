@@ -21,6 +21,11 @@ public class Payment {
     public Payment() {
     }
 
+    public Payment(long personId, long amount) {
+        this.personId = personId;
+        this.amount = amount;
+    }
+
     public long getPersonId() {
         return personId;
     }

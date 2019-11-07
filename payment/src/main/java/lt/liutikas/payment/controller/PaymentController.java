@@ -1,6 +1,7 @@
 package lt.liutikas.payment.controller;
 
 import lt.liutikas.exception.PersonNotFoundException;
+import lt.liutikas.model.CreatePaymentDTO;
 import lt.liutikas.model.Payment;
 import lt.liutikas.payment.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class PaymentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody Payment payment) {
+    public void create(@RequestBody CreatePaymentDTO payment) {
         try {
             service.save(payment);
         } catch (PersonNotFoundException e) {
