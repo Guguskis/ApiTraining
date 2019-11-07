@@ -1,6 +1,6 @@
 package lt.liutikas.payment.repository;
 
-import lt.liutikas.payment.model.Payment;
+import lt.liutikas.model.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
 package lt.liutikas.person.service;
 
-import lt.liutikas.person.exception.PersonNotFoundException;
-import lt.liutikas.person.model.Person;
+import lt.liutikas.exception.PersonNotFoundException;
+import lt.liutikas.model.Person;
 import lt.liutikas.person.repository.PersonRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

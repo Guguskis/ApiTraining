@@ -1,7 +1,7 @@
 package lt.liutikas.payment.service;
 
-import lt.liutikas.payment.model.Payment;
-import lt.liutikas.person.exception.PersonNotFoundException;
+import lt.liutikas.model.Payment;
+import lt.liutikas.exception.PersonNotFoundException;
 
 import java.util.List;
 

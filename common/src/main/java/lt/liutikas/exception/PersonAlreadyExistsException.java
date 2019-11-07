@@ -1,4 +1,4 @@
-package lt.liutikas.person.exception;
+package lt.liutikas.exception;
 
 public class PersonAlreadyExistsException extends Exception {
 }

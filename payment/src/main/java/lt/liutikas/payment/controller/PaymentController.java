@@ -1,8 +1,8 @@
 package lt.liutikas.payment.controller;
 
-import lt.liutikas.payment.model.Payment;
+import lt.liutikas.exception.PersonNotFoundException;
+import lt.liutikas.model.Payment;
 import lt.liutikas.payment.service.PaymentService;
-import lt.liutikas.person.exception.PersonNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;

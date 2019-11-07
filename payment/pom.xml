@@ -29,7 +29,7 @@
          dependency to common module -->
         <dependency>
             <groupId>lt.liutikas</groupId>
-            <artifactId>person</artifactId>
+            <artifactId>common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 

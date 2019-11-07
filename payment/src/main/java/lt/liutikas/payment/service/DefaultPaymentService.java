@@ -1,9 +1,9 @@
 package lt.liutikas.payment.service;
 
-import lt.liutikas.payment.model.Payment;
+import lt.liutikas.model.Payment;
+import lt.liutikas.model.Person;
 import lt.liutikas.payment.repository.PaymentRepository;
-import lt.liutikas.person.exception.PersonNotFoundException;
-import lt.liutikas.person.model.Person;
+import lt.liutikas.exception.PersonNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +37,9 @@ public class DefaultPaymentService implements PaymentService {
     public void save(Payment payment) throws PersonNotFoundException {
         try {
             // Payment.personId ir Person.id
-            // Send Payment.personId to PersonAPI. Then retrieve the PK of person
+            // I need to create PaymentDTO that accepts officialId
+            // Then I need to convert that officialId to id (PK of person)
+            // And then continue
             // MM: here you should send person official ID to PaymentsAPI and here make a call to PersonsAPI to get person id
             // Use this person id storing new payment to DB
             URI getPersonUri = new URI("http://localhost:8082/api/persons/" + payment.getPersonId());

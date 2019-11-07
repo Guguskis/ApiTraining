@@ -1,8 +1,8 @@
 package lt.liutikas.person.service;
 
-import lt.liutikas.person.exception.PersonAlreadyExistsException;
-import lt.liutikas.person.exception.PersonNotFoundException;
-import lt.liutikas.person.model.Person;
+import lt.liutikas.exception.PersonAlreadyExistsException;
+import lt.liutikas.exception.PersonNotFoundException;
+import lt.liutikas.model.Person;
 
 import java.util.List;
 

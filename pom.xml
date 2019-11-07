@@ -11,6 +11,7 @@
     <modules>
         <module>payment</module>
         <module>person</module>
+        <module>common</module>
     </modules>
 
     <properties>

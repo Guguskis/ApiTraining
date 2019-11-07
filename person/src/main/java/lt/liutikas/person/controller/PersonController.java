@@ -1,8 +1,8 @@
 package lt.liutikas.person.controller;
 
-import lt.liutikas.person.exception.PersonAlreadyExistsException;
-import lt.liutikas.person.exception.PersonNotFoundException;
-import lt.liutikas.person.model.Person;
+import lt.liutikas.exception.PersonAlreadyExistsException;
+import lt.liutikas.exception.PersonNotFoundException;
+import lt.liutikas.model.Person;
 import lt.liutikas.person.service.DefaultPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
