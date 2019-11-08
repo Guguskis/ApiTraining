@@ -35,3 +35,4 @@ build/
 
 ### Something strange ###
 .cmd
+/logs/

@@ -1,6 +1,5 @@
 package lt.liutikas.payment.controller;
 
-import lt.liutikas.exception.PersonNotFoundException;
 import lt.liutikas.model.CreatePaymentDTO;
 import lt.liutikas.model.Payment;
 import lt.liutikas.payment.service.PaymentService;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -37,11 +35,7 @@ public class PaymentController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody CreatePaymentDTO payment) {
-        try {
-            service.save(payment);
-        } catch (PersonNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Person not found");
-        }
+        service.save(payment);
     }
 
     @DeleteMapping("/{id}")
