@@ -21,6 +21,10 @@ public class Person {
         this.name = name;
     }
 
+    public Person(long officialId) {
+        this.officialId = officialId;
+    }
+
     public long getId() {
         return id;
     }

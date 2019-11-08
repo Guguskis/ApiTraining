@@ -7,10 +7,13 @@ import lt.liutikas.model.Person;
 import lt.liutikas.payment.repository.PaymentRepository;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -19,10 +22,11 @@ import java.util.stream.Collectors;
 @Service
 public class DefaultPaymentService implements PaymentService {
 
+    public static final String PERSON_API_URL = "http://localhost:8082/api/persons/";
     private static Logger logger;
 
     static {
-        logger = (Logger) LoggerFactory.getLogger(DefaultPaymentService.class.getSimpleName());
+        logger = (Logger) LoggerFactory.getLogger(DefaultPaymentService.class);
     }
 
     private PaymentRepository repository;
@@ -36,28 +40,53 @@ public class DefaultPaymentService implements PaymentService {
 
     @Override
     public List<Payment> findAll() {
-        logger.info("DefaultPaymentService created");
         return repository.findAll();
     }
 
     @Override
     public void save(CreatePaymentDTO paymentDTO) {
+        long personId = 0;
         try {
-            String url = "http://localhost:8082/api/persons/" + paymentDTO.getPersonOfficialId();
-            ResponseEntity<Person> response = restTemplate.getForEntity(url, Person.class);
-
-            Payment payment = new Payment(response.getBody().getId(), paymentDTO.getAmount());
-            repository.save(payment);
+            personId = getIdFromOfficialId(paymentDTO);
         } catch (HttpStatusCodeException e) {
             if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
-                // Todo create a new person if it does not exist
-                logger.warn("Person not found");
+                postPerson(paymentDTO);
+                personId = getIdFromOfficialId(paymentDTO);
             } else {
-                logger.error("Unhandled response status code from PersonAPI", e);
+                logger.error("Unhandled response status code from Person service", e);
             }
-        } catch (Exception e) {
-            logger.error("Unhandled exception", e);
         }
+        createPayment(paymentDTO, personId);
+    }
+
+    private long getIdFromOfficialId(CreatePaymentDTO paymentDTO) throws ResourceAccessException, HttpStatusCodeException {
+        String getPersonUrl = PERSON_API_URL + paymentDTO.getPersonOfficialId();
+        return restTemplate
+                .getForEntity(getPersonUrl, Person.class)
+                .getBody()
+                .getId();
+    }
+
+    private void postPerson(CreatePaymentDTO paymentDTO) throws ResourceAccessException {
+        HttpHeaders headers = setupJSONHeaders();
+        HttpEntity<Person> request = setupHttpRequest(paymentDTO, headers);
+        restTemplate.postForLocation(PERSON_API_URL, request);
+    }
+
+    private HttpEntity<Person> setupHttpRequest(CreatePaymentDTO paymentDTO, HttpHeaders headers) {
+        Person person = new Person(paymentDTO.getPersonOfficialId());
+        return new HttpEntity<Person>(person, headers);
+    }
+
+    private HttpHeaders setupJSONHeaders() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return headers;
+    }
+
+    private void createPayment(CreatePaymentDTO paymentDTO, long personId) {
+        Payment payment = new Payment(personId, paymentDTO.getAmount());
+        repository.save(payment);
     }
 
     @Override
