@@ -36,8 +36,8 @@ public class DefaultPersonService implements PersonService {
     }
 
     @Override
-    public void delete(long id) {
-        repository.deleteById(id);
+    public void delete(long officialId) {
+        repository.deleteByOfficialId(officialId);
     }
 
     @Override

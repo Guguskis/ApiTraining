@@ -57,10 +57,10 @@ public class PersonController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{officialId}")
     @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable("id") long id) {
-        service.delete(id);
+    public void delete(@PathVariable("officialId") long officialId) {
+        service.delete(officialId);
     }
 
 }
