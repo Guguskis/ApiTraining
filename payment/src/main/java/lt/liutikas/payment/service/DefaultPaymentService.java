@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Service
 public class DefaultPaymentService implements PaymentService {
 
-    public static final String PERSON_API_URL = "http://localhost:8082/api/persons/";
+    private static final String PERSON_API_URL = "http://localhost:8082/api/persons/";
     private static Logger logger;
 
     static {
@@ -47,11 +47,11 @@ public class DefaultPaymentService implements PaymentService {
     public void save(CreatePaymentDTO paymentDTO) {
         long personId = 0;
         try {
-            personId = getIdFromOfficialId(paymentDTO);
+            personId = getPersonId(paymentDTO.getPersonOfficialId());
         } catch (HttpStatusCodeException e) {
             if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
                 postPerson(paymentDTO);
-                personId = getIdFromOfficialId(paymentDTO);
+                personId = getPersonId(paymentDTO.getPersonOfficialId());
             } else {
                 logger.error("Unhandled response status code from Person service", e);
             }
@@ -59,23 +59,23 @@ public class DefaultPaymentService implements PaymentService {
         createPayment(paymentDTO, personId);
     }
 
-    private long getIdFromOfficialId(CreatePaymentDTO paymentDTO) throws ResourceAccessException, HttpStatusCodeException {
-        String getPersonUrl = PERSON_API_URL + paymentDTO.getPersonOfficialId();
+    private long getPersonId(long officialId){
+        String getPersonUrl = PERSON_API_URL + officialId;
         return restTemplate
                 .getForEntity(getPersonUrl, Person.class)
                 .getBody()
                 .getId();
     }
 
-    private void postPerson(CreatePaymentDTO paymentDTO) throws ResourceAccessException {
+    private void postPerson(CreatePaymentDTO paymentDTO){
         HttpHeaders headers = setupJSONHeaders();
-        HttpEntity<Person> request = setupHttpRequest(paymentDTO, headers);
+        HttpEntity<Person> request = setupPersonRequest(paymentDTO, headers);
         restTemplate.postForLocation(PERSON_API_URL, request);
     }
 
-    private HttpEntity<Person> setupHttpRequest(CreatePaymentDTO paymentDTO, HttpHeaders headers) {
+    private HttpEntity<Person> setupPersonRequest(CreatePaymentDTO paymentDTO, HttpHeaders headers) {
         Person person = new Person(paymentDTO.getPersonOfficialId());
-        return new HttpEntity<Person>(person, headers);
+        return new HttpEntity<>(person, headers);
     }
 
     private HttpHeaders setupJSONHeaders() {
