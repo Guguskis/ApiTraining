@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
+// MM: unused import
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,6 +26,9 @@ public class DefaultPaymentService implements PaymentService {
     private static final String PERSON_API_URL = "http://localhost:8082/api/persons/";
     private static Logger logger;
 
+    // MM: don't assign logger in separated part. Just use:
+    // private static final Logger logger = (Logger) LoggerFactory.getLogger(DefaultPaymentService.class);
+    // also static final
     static {
         logger = (Logger) LoggerFactory.getLogger(DefaultPaymentService.class);
     }
