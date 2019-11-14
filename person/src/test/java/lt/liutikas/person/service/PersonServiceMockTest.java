@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
@@ -25,16 +25,17 @@ public class PersonServiceMockTest {
 
     @Test
     void find_FindingExistingPerson_ReturnsPerson() throws PersonNotFoundException {
-        Person expected = new Person(5, "Matas");
-        when(personRepository.findByOfficialId(5L)).thenReturn(expected);
+        long officialId = 5;
+        Person expected = new Person(officialId, "John");
+        when(personRepository.findByOfficialId(officialId)).thenReturn(expected);
 
-        Person result = personService.find(5);
+        Person result = personService.find(officialId);
 
-        assertEquals(expected, result);
+        assert (result.equals(expected));
     }
 
     @Test
-    void find_FindingNotExistingPerson_ThrowsException() {
+    void find_FindingNonExistingPerson_ThrowsException() {
         assertThrows(PersonNotFoundException.class, () -> {
             personService.find(5);
         });

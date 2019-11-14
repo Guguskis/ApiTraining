@@ -13,8 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
-// MM: unused import
-import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -24,14 +22,7 @@ import java.util.stream.Collectors;
 public class DefaultPaymentService implements PaymentService {
 
     private static final String PERSON_API_URL = "http://localhost:8082/api/persons/";
-    private static Logger logger;
-
-    // MM: don't assign logger in separated part. Just use:
-    // private static final Logger logger = (Logger) LoggerFactory.getLogger(DefaultPaymentService.class);
-    // also static final
-    static {
-        logger = (Logger) LoggerFactory.getLogger(DefaultPaymentService.class);
-    }
+    private static final Logger logger = (Logger) LoggerFactory.getLogger(DefaultPaymentService.class);
 
     private PaymentRepository repository;
     private RestTemplate restTemplate;
@@ -48,7 +39,7 @@ public class DefaultPaymentService implements PaymentService {
     }
 
     @Override
-    public void save(CreatePaymentDTO paymentDTO) {
+    public void create(CreatePaymentDTO paymentDTO) {
         long personId = 0;
         try {
             personId = getPersonId(paymentDTO.getPersonOfficialId());
@@ -63,7 +54,7 @@ public class DefaultPaymentService implements PaymentService {
         createPayment(paymentDTO, personId);
     }
 
-    private long getPersonId(long officialId){
+    private long getPersonId(long officialId) {
         String getPersonUrl = PERSON_API_URL + officialId;
         return restTemplate
                 .getForEntity(getPersonUrl, Person.class)
@@ -71,7 +62,7 @@ public class DefaultPaymentService implements PaymentService {
                 .getId();
     }
 
-    private void postPerson(CreatePaymentDTO paymentDTO){
+    private void postPerson(CreatePaymentDTO paymentDTO) {
         HttpHeaders headers = setupJSONHeaders();
         HttpEntity<Person> request = setupPersonRequest(paymentDTO, headers);
         restTemplate.postForLocation(PERSON_API_URL, request);

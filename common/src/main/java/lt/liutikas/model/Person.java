@@ -48,4 +48,8 @@ public class Person {
     public void setName(String name) {
         this.name = name;
     }
+
+    public boolean equals(Person p) {
+        return p.getOfficialId() == getOfficialId();
+    }
 }

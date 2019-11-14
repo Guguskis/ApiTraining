@@ -8,8 +8,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableWebMvc
-// MM: don't use wildcards in imports
-@EntityScan("lt.liutikas.*")
+@EntityScan("lt.liutikas.model")
 public class WebConfig {
     @Bean
     public RestTemplate restTemplate() {

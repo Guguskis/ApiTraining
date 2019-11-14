@@ -10,7 +10,7 @@ public interface PaymentService {
 
     List<Payment> findAll();
 
-    void save(CreatePaymentDTO payment) throws ResourceAccessException;
+    void create(CreatePaymentDTO payment) throws ResourceAccessException;
 
     void delete(long id);
 

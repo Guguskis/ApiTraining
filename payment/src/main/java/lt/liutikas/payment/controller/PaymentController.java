@@ -46,7 +46,7 @@ public class PaymentController {
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody CreatePaymentDTO payment) {
         try {
-            service.save(payment);
+            service.create(payment);
         } catch (ResourceAccessException e) {
             logger.error("Request to Person service took too long.");
         }
