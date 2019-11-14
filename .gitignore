@@ -36,3 +36,4 @@ build/
 ### Something strange ###
 .cmd
 /logs/
+/payment/logs/

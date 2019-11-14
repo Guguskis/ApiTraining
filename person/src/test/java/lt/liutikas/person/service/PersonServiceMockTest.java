@@ -1,5 +1,6 @@
 package lt.liutikas.person.service;
 
+import lt.liutikas.exception.PersonAlreadyExistsException;
 import lt.liutikas.exception.PersonNotFoundException;
 import lt.liutikas.model.Person;
 import lt.liutikas.person.repository.PersonRepository;
@@ -10,8 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(classes = DefaultPersonService.class)
@@ -24,7 +26,7 @@ public class PersonServiceMockTest {
     private PersonService personService;
 
     @Test
-    void find_FindingExistingPerson_ReturnsPerson() throws PersonNotFoundException {
+    void find_ExistingPerson_ReturnsPerson() throws PersonNotFoundException {
         long officialId = 5;
         Person expected = new Person(officialId, "John");
         when(personRepository.findByOfficialId(officialId)).thenReturn(expected);
@@ -35,9 +37,29 @@ public class PersonServiceMockTest {
     }
 
     @Test
-    void find_FindingNonExistingPerson_ThrowsException() {
+    void find_NonExistingPerson_ThrowsException() {
         assertThrows(PersonNotFoundException.class, () -> {
             personService.find(5);
         });
+    }
+
+    @Test
+    void create_WithOfficialIdTaken_ThrowsException() {
+        Person person = new Person(5, "John");
+        when(personRepository.findByOfficialId(person.getOfficialId()))
+                .thenReturn(person);
+
+        assertThrows(PersonAlreadyExistsException.class, () -> {
+            personService.create(person);
+        });
+    }
+
+    @Test
+    void create_ValidPerson_DoesNotThrowException() {
+        Person person = new Person(5, "John");
+        when(personRepository.findByOfficialId(anyLong()))
+                .thenReturn(null);
+
+        assertDoesNotThrow(() -> personService.create(person));
     }
 }
