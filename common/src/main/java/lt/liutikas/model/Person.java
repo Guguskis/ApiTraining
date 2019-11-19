@@ -55,7 +55,11 @@ public class Person {
         this.name = name;
     }
 
-    public boolean equals(Person p) {
-        return p.getOfficialId() == getOfficialId();
+    public boolean equals(Object p) {
+        if (p instanceof Person) {
+            return ((Person) p).getOfficialId() == getOfficialId();
+        }
+
+        return false;
     }
 }
