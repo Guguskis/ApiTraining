@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ContextConfiguration(classes = WebConfig.class)
 @ExtendWith(SpringExtension.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class PersonServiceMockTest {
+public class PersonServiceTest {
     @Autowired
     private PersonRepository repository;
 
@@ -34,9 +34,9 @@ public class PersonServiceMockTest {
         Person expected = new Person(officialId, "John");
 
         repository.save(expected);
-        Person result = service.find(officialId);
+        Person actual = service.find(officialId);
 
-        assertTrue(result.equals(expected));
+        assertTrue(actual.equals(expected));
     }
 
     @Test
@@ -53,9 +53,8 @@ public class PersonServiceMockTest {
 
         service.create(officialIdHolder);
 
-        assertThrows(PersonAlreadyExistsException.class, () -> {
-            service.create(usesTakenOfficialId);
-        });
+        assertThrows(PersonAlreadyExistsException.class,
+                () -> service.create(usesTakenOfficialId));
     }
 
     @Test

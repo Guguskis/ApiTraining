@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Matas
+      changes:
+        - createTable:
+            tableName: PERSON
+            columns:
+              - column:
+                  name: ID
+                  type: long
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: OFFICIALID
+                  type: long
+                  constraints:
+                    nullable: false
+              - column:
+                  name: NAME
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
