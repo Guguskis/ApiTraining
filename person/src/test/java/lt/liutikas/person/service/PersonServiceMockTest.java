@@ -15,6 +15,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 @ContextConfiguration(classes = WebConfig.class)
@@ -35,7 +36,7 @@ public class PersonServiceMockTest {
         repository.save(expected);
         Person result = service.find(officialId);
 
-        assert result.equals(expected);
+        assertTrue(result.equals(expected));
     }
 
     @Test
