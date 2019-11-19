@@ -4,7 +4,6 @@ import lt.liutikas.exception.PersonAlreadyExistsException;
 import lt.liutikas.exception.PersonNotFoundException;
 import lt.liutikas.model.Person;
 import lt.liutikas.person.service.DefaultPersonService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,13 +23,8 @@ public class PersonController {
 
     private DefaultPersonService service;
 
-    @Autowired
     public PersonController(DefaultPersonService service) {
         this.service = service;
-        create(new Person(5, "Matas"));
-        create(new Person(1, "Jokubas"));
-        create(new Person(2, "Markas"));
-        create(new Person(3, "Lukas"));
     }
 
     @GetMapping

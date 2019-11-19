@@ -1,16 +1,20 @@
 package lt.liutikas.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name = "PERSON")
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "ID")
     private long id;
+    @Column(name = "OFFICIALID")
     private long officialId;
+    @Column(name = "NAME")
     private String name;
 
     public Person() {
