@@ -2,6 +2,7 @@ package lt.liutikas.person.service;
 
 import lt.liutikas.exception.PersonAlreadyExistsException;
 import lt.liutikas.exception.PersonNotFoundException;
+import lt.liutikas.model.LanguagePersonDTO;
 import lt.liutikas.model.Person;
 
 import java.util.List;
@@ -15,4 +16,5 @@ public interface PersonService {
 
     Person find(long id) throws PersonNotFoundException;
 
+    List<LanguagePersonDTO> findAllMapped();
 }

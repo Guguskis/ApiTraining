@@ -18,6 +18,8 @@ public class Person {
     private long officialId;
     @Column(name = "NAME")
     private String name;
+    @Column(name = "LANGUAGEID")
+    private long languageId;
 
     public Person() {
     }
@@ -53,6 +55,14 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getLanguageId() {
+        return languageId;
+    }
+
+    public void setLanguageId(long languageId) {
+        this.languageId = languageId;
     }
 
     public boolean equals(Object p) {

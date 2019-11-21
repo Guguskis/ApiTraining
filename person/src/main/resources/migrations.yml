@@ -23,3 +23,8 @@ databaseChangeLog:
                   type: varchar(100)
                   constraints:
                     nullable: false
+              - column:
+                  name: LANGUAGEID
+                  type: long
+                  constraints:
+                    nullable: false

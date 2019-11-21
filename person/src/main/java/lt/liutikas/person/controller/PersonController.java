@@ -2,6 +2,7 @@ package lt.liutikas.person.controller;
 
 import lt.liutikas.exception.PersonAlreadyExistsException;
 import lt.liutikas.exception.PersonNotFoundException;
+import lt.liutikas.model.LanguagePersonDTO;
 import lt.liutikas.model.Person;
 import lt.liutikas.person.service.DefaultPersonService;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,11 @@ public class PersonController {
     @GetMapping
     public List<Person> findAll() {
         return service.findAll();
+    }
+
+    @GetMapping("/mapped")
+    public List<LanguagePersonDTO> findAllMapped() {
+        return service.findAllMapped();
     }
 
     @GetMapping("/{officialId}")
