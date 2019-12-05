@@ -4,7 +4,6 @@ import lt.liutikas.dropbox.validation.ValidationRoute;
 import lt.liutikas.model.Person;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
-import org.apache.camel.LoggingLevel;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.boot.SpringApplication;
@@ -33,24 +32,30 @@ public class DropboxApplication extends RouteBuilder {
             @Override
             public void configure() throws Exception {
                 from(getInFolder())
-                        .routeId("my little router")
                         .unmarshal().csv()
                         .to("direct:validation")
                         //File component should handle where to move file
                         //.process(mappingProcessor())
-                        .log(LoggingLevel.INFO, "${in.headers.valid}")
                         .marshal().csv()
-                        .to(getOutFolder());
+                        .choice()
+                        .when(header("valid").isEqualTo(true))
+                        .to(getSuccessFolder())
+                        .otherwise()
+                        .to(getFailureFolder());
+            }
+
+            private String getFailureFolder() {
+                return ROOT_FOLDER + "/failure";
+            }
+
+            private String getSuccessFolder() {
+                return ROOT_FOLDER + "/success";
             }
         });
     }
 
-    private String getOutFolder() {
-        return ROOT_FOLDER + "/processed?noop=true";
-    }
-
     private String getInFolder() {
-        return ROOT_FOLDER + "/in";
+        return ROOT_FOLDER + "/in?delete=true";
     }
 
     private Processor mappingProcessor() {

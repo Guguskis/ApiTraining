@@ -10,5 +10,4 @@ public class ValidationRoute extends RouteBuilder {
                 .process(new ValidationProcessor())
                 .to("mock:result");
     }
-
 }
