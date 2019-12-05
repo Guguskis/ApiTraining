@@ -4,9 +4,9 @@ import lt.liutikas.dropbox.validation.ValidationRoute;
 import lt.liutikas.model.Person;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -15,9 +15,12 @@ import java.util.List;
 
 @SpringBootApplication
 public class DropboxApplication extends RouteBuilder {
-    @Autowired
-    private CamelContext context;
+    private final CamelContext context;
     private final String ROOT_FOLDER = "file://dropbox/files";
+
+    public DropboxApplication(CamelContext context) {
+        this.context = context;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(DropboxApplication.class, args);
@@ -26,12 +29,28 @@ public class DropboxApplication extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         context.addRoutes(new ValidationRoute());
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from(getInFolder())
+                        .routeId("my little router")
+                        .unmarshal().csv()
+                        .to("direct:validation")
+                        //File component should handle where to move file
+                        //.process(mappingProcessor())
+                        .log(LoggingLevel.INFO, "${in.headers.valid}")
+                        .marshal().csv()
+                        .to(getOutFolder());
+            }
+        });
+    }
 
-//        from(ROOT_FOLDER + "/in?delete=true").unmarshal().csv()
-//                .to("direct:validation");
-//                 File component should handle where to move file
-//                .process(mappingProcessor());
-//                        .marshal().csv().to(ROOT_FOLDER + "/processed");
+    private String getOutFolder() {
+        return ROOT_FOLDER + "/processed?noop=true";
+    }
+
+    private String getInFolder() {
+        return ROOT_FOLDER + "/in";
     }
 
     private Processor mappingProcessor() {

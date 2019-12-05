@@ -3,6 +3,7 @@ server:
 camel:
   springboot:
     name: ServicesRest
+    main-run-controller: true
 management:
   port: 8081
 endpoints:

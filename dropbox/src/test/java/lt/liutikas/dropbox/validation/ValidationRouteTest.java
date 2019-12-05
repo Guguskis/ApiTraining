@@ -16,6 +16,13 @@ import java.util.List;
 @CamelSpringBootTest
 @ContextConfiguration(classes = WebConfig.class)
 class ValidationRouteTest {
+
+    //Todo
+//    @After
+//    public void tearDown() throws Exception {
+//        mockEndpoint.reset();
+//    }
+
     @EndpointInject("mock:result")
     private MockEndpoint mock;
 
