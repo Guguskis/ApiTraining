@@ -12,6 +12,7 @@
         <module>payment</module>
         <module>person</module>
         <module>common</module>
+        <module>dropbox</module>
     </modules>
 
     <properties>
@@ -26,6 +27,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <camel.version>3.0.0-RC3</camel.version>
     </properties>
 
     <dependencyManagement>
@@ -102,6 +104,18 @@
                 <artifactId>liquibase-core</artifactId>
                 <version>${liquibase.version}</version>
             </dependency>
+            <!--Camel-->
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-spring-boot</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-file-watch-starter</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
