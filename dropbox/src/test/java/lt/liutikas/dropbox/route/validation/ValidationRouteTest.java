@@ -1,4 +1,4 @@
-package lt.liutikas.dropbox.validation;
+package lt.liutikas.dropbox.route.validation;
 
 import lt.liutikas.dropbox.WebConfig;
 import org.apache.camel.EndpointInject;

@@ -1,6 +1,9 @@
 package lt.liutikas.dropbox;
 
-import lt.liutikas.dropbox.validation.ValidationRoute;
+import lt.liutikas.dropbox.route.HandlingRoute;
+import lt.liutikas.dropbox.route.ImportingRoute;
+import lt.liutikas.dropbox.route.MainRoute;
+import lt.liutikas.dropbox.route.validation.ValidationRoute;
 import lt.liutikas.model.Person;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -15,7 +18,6 @@ import java.util.List;
 @SpringBootApplication
 public class DropboxApplication extends RouteBuilder {
     private final CamelContext context;
-    private final String ROOT_FOLDER = "file://dropbox/files";
 
     public DropboxApplication(CamelContext context) {
         this.context = context;
@@ -28,34 +30,9 @@ public class DropboxApplication extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         context.addRoutes(new ValidationRoute());
-        context.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from(getInFolder())
-                        .unmarshal().csv()
-                        .to("direct:validation")
-                        //File component should handle where to move file
-                        //.process(mappingProcessor())
-                        .marshal().csv()
-                        .choice()
-                        .when(header("valid").isEqualTo(true))
-                        .to(getSuccessFolder())
-                        .otherwise()
-                        .to(getFailureFolder());
-            }
-
-            private String getFailureFolder() {
-                return ROOT_FOLDER + "/failure";
-            }
-
-            private String getSuccessFolder() {
-                return ROOT_FOLDER + "/success";
-            }
-        });
-    }
-
-    private String getInFolder() {
-        return ROOT_FOLDER + "/in?delete=true";
+        context.addRoutes(new HandlingRoute());
+        context.addRoutes(new ImportingRoute());
+        context.addRoutes(new MainRoute());
     }
 
     private Processor mappingProcessor() {
@@ -98,4 +75,5 @@ public class DropboxApplication extends RouteBuilder {
             }
         };
     }
+
 }
