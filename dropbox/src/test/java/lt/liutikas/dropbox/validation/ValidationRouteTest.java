@@ -47,7 +47,7 @@ class ValidationRouteTest {
     }
 
     @Test
-    void route_NoRows_ReturnsFalse() throws InterruptedException {
+    void route_OnlyProperties_ReturnsFalse() throws InterruptedException {
         List<List<String>> body = new ArrayList<>();
         body.add(Arrays.asList("name", "officialId", "languageId"));
 
@@ -106,7 +106,7 @@ class ValidationRouteTest {
     }
 
     @Test
-    void route_RowHasNotEnoughValues_ReturnsFalse() throws InterruptedException {
+    void route_RowHasMissingValues_ReturnsFalse() throws InterruptedException {
         List<List<String>> body = new ArrayList<>();
         body.add(Arrays.asList("name", "officialId", "languageId"));
         body.add(Arrays.asList("Michael", "1"));
@@ -118,7 +118,7 @@ class ValidationRouteTest {
     }
 
     @Test
-    void route_ValueContainsNotNumberCharactersWhereLongDataTypeExpected_ReturnsFalse() throws InterruptedException {
+    void route_ValueIsStringWhereLongExpected_ReturnsFalse() throws InterruptedException {
         List<List<String>> body = new ArrayList<>();
         body.add(Arrays.asList("name", "officialId", "languageId"));
         body.add(Arrays.asList("Michael", "1", "string value"));
