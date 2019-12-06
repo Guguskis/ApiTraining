@@ -3,6 +3,7 @@ package lt.liutikas.dropbox;
 import lt.liutikas.dropbox.route.HandlingRoute;
 import lt.liutikas.dropbox.route.ImportingRoute;
 import lt.liutikas.dropbox.route.MainRoute;
+import lt.liutikas.dropbox.route.ParsingRoute;
 import lt.liutikas.dropbox.route.validation.ValidationRoute;
 import lt.liutikas.model.Person;
 import org.apache.camel.CamelContext;
@@ -31,6 +32,7 @@ public class DropboxApplication extends RouteBuilder {
     public void configure() throws Exception {
         context.addRoutes(new ValidationRoute());
         context.addRoutes(new HandlingRoute());
+        context.addRoutes(new ParsingRoute());
         context.addRoutes(new ImportingRoute());
         context.addRoutes(new MainRoute());
     }

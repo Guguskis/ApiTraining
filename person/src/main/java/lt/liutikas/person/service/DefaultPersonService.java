@@ -32,7 +32,8 @@ public class DefaultPersonService implements PersonService {
     @Override
     public List<LanguagePersonDTO> findAllMapped() {
         List<Person> persons = repository.findAll();
-        return template.requestBody("direct://mapLanguageIdToLanguage", persons, List.class);
+        var mapper = new PersonLanguageMapper();
+        return mapper.getMappedPersons(persons);
     }
 
     @Override

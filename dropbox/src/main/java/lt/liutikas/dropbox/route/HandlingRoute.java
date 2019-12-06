@@ -11,9 +11,8 @@ public class HandlingRoute extends RouteBuilder {
                 .routeId("resultFolderHandling")
                 .choice()
                 .when(header("valid").isEqualTo(true))
-                .to("direct:importing")
+                .to("direct:parse")
                 .marshal().csv()
-                .to(getSuccessFolder())
                 .to(getSuccessFolder())
                 .otherwise()
                 .to(getFailureFolder());

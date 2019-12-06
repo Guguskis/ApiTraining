@@ -7,11 +7,19 @@ public class MainRoute extends RouteBuilder {
 
     @Override
     public void configure() {
+//        from(getInFolder())
+//                .routeId("mainRoute")
+//                .unmarshal().csv()
+//                .to("direct:validation")
+//                .to("direct:handling");
+
+//        onException(MalformedInputException.class).log("Exception handled");
+
         from(getInFolder())
-                .routeId("mainRoute")
+                .routeId("simplerMainRoute")
                 .unmarshal().csv()
-                .to("direct:validation")
-                .to("direct:handling");
+                .to("direct:parse").to("direct:import");
+
     }
 
     private String getInFolder() {

@@ -1,59 +1,45 @@
 package lt.liutikas.dropbox.route;
 
 import lt.liutikas.model.Person;
+import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ImportingRoute extends RouteBuilder {
+
     @Override
-    public void configure() throws Exception {
-        from("direct:importing")
-                .routeId("importing")
-                .process(getParsingProcessor())
-                .process(exchange -> {
-                    List<Person> persons = exchange.getIn().getBody(List.class);
-
-
-                });
+    public void configure() {
+        from("direct:import")
+                .process(setFirstPersonToBody())
+                .setHeader(Exchange.HTTP_METHOD, constant("GET"))
+                .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
+                .to("http://localhost:8082/api/persons/");
+//                .process(printHeader());
     }
 
-    private Processor getParsingProcessor() {
-        return exchange -> {
-            List body = exchange.getIn().getBody(List.class);
-
-            List<String> properties = (List<String>) body.get(0);
-            List<List<String>> unparsedPersons = body.subList(1, body.size());
-
-            var parsedPersons = new ArrayList<Person>();
-
-            unparsedPersons.forEach(row -> {
-                parsedPersons.add(getParsedPerson(properties, row));
-            });
-
-            exchange.getIn().setBody(parsedPersons);
+    private Processor printHeader() {
+        return new Processor() {
+            @Override
+            public void process(Exchange exchange) throws Exception {
+                Object header = exchange.getIn().getHeader(Exchange.HTTP_RESPONSE_CODE);
+                System.out.println("header = " + header);
+            }
         };
     }
 
-    private Person getParsedPerson(List<String> properties, List<String> row) {
-        Person person = new Person();
-        for (int i = 0; i < row.size(); i++) {
-            String property = properties.get(i);
-            String value = row.get(i);
-            switch (property) {
-                case "name":
-                    person.setName(value);
-                    break;
-                case "officialId":
-                    person.setOfficialId(Long.parseLong(value));
-                    break;
-                case "languageId":
-                    person.setLanguageId(Long.parseLong(value));
-                    break;
-            }
-        }
-        return person;
+    private Processor setFirstPersonToBody() {
+        return exchange -> {
+            List<Person> people = exchange.getIn().getBody(List.class);
+//          printNames(people);
+            exchange.getIn().setBody(people.get(0));
+        };
+    }
+
+    private void printNames(List<Person> people) {
+        people.forEach(person -> {
+            System.out.println(person.getName());
+        });
     }
 }

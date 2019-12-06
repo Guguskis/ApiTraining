@@ -42,6 +42,18 @@
             <artifactId>camel-core</artifactId>
             <version>3.0.0-RC3</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-http-starter</artifactId>
+            <version>3.0.0-RC3</version>
+        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.camel</groupId>-->
+        <!--            <artifactId>camel-test-spring</artifactId>-->
+        <!--            <version>3.0.0-RC3</version>-->
+        <!--        </dependency>-->
+
+
         <!--        <dependency>-->
         <!--            <groupId>org.apache.camel</groupId>-->
         <!--            <artifactId>camel-file-watch-starter</artifactId>-->

@@ -17,3 +17,6 @@ lt:
   liutikas:
     api:
       path: '/camel'
+spring:
+  main:
+    web-application-type: none
