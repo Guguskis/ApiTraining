@@ -56,6 +56,8 @@ public class ParsingRoute extends RouteBuilder {
 
     private void setValueOfPerson(Person person, String property, String value) {
         switch (property) {
+            case "id":
+                person.setId(Long.parseLong(value));
             case "name":
                 person.setName(value);
                 break;
@@ -67,4 +69,5 @@ public class ParsingRoute extends RouteBuilder {
                 break;
         }
     }
+
 }

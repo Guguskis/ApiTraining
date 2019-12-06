@@ -18,7 +18,8 @@ public class MainRoute extends RouteBuilder {
         from(getInFolder())
                 .routeId("simplerMainRoute")
                 .unmarshal().csv()
-                .to("direct:parse").to("direct:import");
+                .to("direct:parse")
+                .to("direct:import");
 
     }
 
