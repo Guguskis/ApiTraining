@@ -9,6 +9,7 @@ import org.apache.camel.ProducerTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -63,4 +64,22 @@ public class DefaultPersonService implements PersonService {
         }
     }
 
+    @Override
+    public void create(List<Person> people) throws PersonAlreadyExistsException {
+        List<Person> unsavedPeople = new ArrayList<>();
+        people.forEach(person -> {
+            try {
+                create(person);
+            } catch (Exception e) {
+                unsavedPeople.add(person);
+            }
+        });
+
+        if (!unsavedPeople.isEmpty()) {
+            StringBuilder builder = new StringBuilder();
+            builder.append("People that couldn't be created:");
+            unsavedPeople.forEach(builder::append);
+            throw new PersonAlreadyExistsException(builder.toString());
+        }
+    }
 }

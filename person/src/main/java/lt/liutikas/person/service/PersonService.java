@@ -12,9 +12,12 @@ public interface PersonService {
 
     void create(Person person) throws PersonAlreadyExistsException;
 
+    void create(List<Person> people) throws PersonAlreadyExistsException;
+
     void delete(long id) throws PersonNotFoundException;
 
     Person find(long id) throws PersonNotFoundException;
 
     List<LanguagePersonDTO> findAllMapped();
+
 }

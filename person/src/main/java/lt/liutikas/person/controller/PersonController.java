@@ -53,7 +53,17 @@ public class PersonController {
         try {
             service.create(person);
         } catch (PersonAlreadyExistsException e) {
-            throw new ResponseStatusException((HttpStatus.BAD_REQUEST), "Provide Person with unused official ID", e);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide Person with unused official ID", e);
+        }
+    }
+
+    @PostMapping("/batch")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createBatch(@RequestBody List<Person> people) {
+        try {
+            service.create(people);
+        } catch (PersonAlreadyExistsException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
