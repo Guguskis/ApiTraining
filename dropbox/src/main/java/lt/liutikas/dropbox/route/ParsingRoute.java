@@ -1,6 +1,7 @@
 package lt.liutikas.dropbox.route;
 
 import lt.liutikas.model.Person;
+import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 
@@ -16,19 +17,21 @@ public class ParsingRoute extends RouteBuilder {
                 .process(parsePersons());
     }
 
-    private Processor parsePersons() throws MalformedInputException {
-        // Todo use new
-        return exchange -> {
-            List body = exchange.getIn().getBody(List.class);
+    private Processor parsePersons() {
+        return new Processor() {
+            @Override
+            public void process(Exchange exchange) throws Exception {
+                List body = exchange.getIn().getBody(List.class);
 
-            ArrayList<Person> parsedPersons = null;
-            try {
-                parsedPersons = tryParse(body);
-            } catch (Exception e) {
-                throw new MalformedInputException(0);
+                ArrayList<Person> parsedPersons = null;
+                try {
+                    parsedPersons = tryParse(body);
+                } catch (Exception e) {
+                    throw new MalformedInputException(0);
+                }
+
+                exchange.getIn().setBody(parsedPersons);
             }
-
-            exchange.getIn().setBody(parsedPersons);
         };
     }
 

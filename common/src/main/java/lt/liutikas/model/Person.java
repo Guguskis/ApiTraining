@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "PERSON")
 public class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private long id;
     @Column(name = "OFFICIALID")
@@ -20,6 +20,7 @@ public class Person {
     private String name;
     @Column(name = "LANGUAGEID")
     private long languageId;
+
 
     public Person() {
     }
@@ -71,5 +72,13 @@ public class Person {
         }
 
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "officialId=" + officialId +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

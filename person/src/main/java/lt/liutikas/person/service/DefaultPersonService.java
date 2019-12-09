@@ -5,7 +5,6 @@ import lt.liutikas.exception.PersonNotFoundException;
 import lt.liutikas.model.LanguagePersonDTO;
 import lt.liutikas.model.Person;
 import lt.liutikas.person.repository.PersonRepository;
-import org.apache.camel.ProducerTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,14 +14,11 @@ import java.util.List;
 @Service
 public class DefaultPersonService implements PersonService {
 
-    private final ProducerTemplate template;
-
     private PersonRepository repository;
 
     @Autowired
-    public DefaultPersonService(PersonRepository repository, ProducerTemplate template) {
+    public DefaultPersonService(PersonRepository repository) {
         this.repository = repository;
-        this.template = template;
     }
 
     @Override
@@ -65,20 +61,20 @@ public class DefaultPersonService implements PersonService {
     }
 
     @Override
-    public void create(List<Person> people) throws PersonAlreadyExistsException {
-        List<Person> unsavedPeople = new ArrayList<>();
-        people.forEach(person -> {
+    public void create(List<Person> peopleToCreate) throws PersonAlreadyExistsException {
+        List<Person> uncreatedPeople = new ArrayList<>();
+        peopleToCreate.forEach(person -> {
             try {
                 create(person);
             } catch (Exception e) {
-                unsavedPeople.add(person);
+                uncreatedPeople.add(person);
             }
         });
 
-        if (!unsavedPeople.isEmpty()) {
+        if (!uncreatedPeople.isEmpty()) {
             StringBuilder builder = new StringBuilder();
             builder.append("People that couldn't be created:");
-            unsavedPeople.forEach(builder::append);
+            uncreatedPeople.forEach(builder::append);
             throw new PersonAlreadyExistsException(builder.toString());
         }
     }
