@@ -2,6 +2,7 @@ package lt.liutikas.person.service;
 
 import lt.liutikas.exception.PersonAlreadyExistsException;
 import lt.liutikas.exception.PersonNotFoundException;
+import lt.liutikas.mapper.PersonLanguageMapper;
 import lt.liutikas.model.LanguagePersonDTO;
 import lt.liutikas.model.Person;
 import lt.liutikas.person.repository.PersonRepository;
@@ -15,10 +16,12 @@ import java.util.List;
 public class DefaultPersonService implements PersonService {
 
     private PersonRepository repository;
+    private PersonLanguageMapper languageMapper;
 
     @Autowired
-    public DefaultPersonService(PersonRepository repository) {
+    public DefaultPersonService(PersonRepository repository, PersonLanguageMapper languageMapper) {
         this.repository = repository;
+        this.languageMapper = languageMapper;
     }
 
     @Override
@@ -29,8 +32,7 @@ public class DefaultPersonService implements PersonService {
     @Override
     public List<LanguagePersonDTO> findAllMapped() {
         List<Person> persons = repository.findAll();
-        var mapper = new PersonLanguageMapper();
-        return mapper.getMappedPersons(persons);
+        return languageMapper.getLanguagePersonsDto(persons);
     }
 
     @Override

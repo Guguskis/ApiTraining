@@ -1,4 +1,4 @@
-package lt.liutikas.person.service;
+package lt.liutikas.mapper;
 
 import lt.liutikas.model.LanguagePersonDTO;
 import lt.liutikas.model.Person;
@@ -22,7 +22,7 @@ public class PersonLanguageMapper {
     }
 
 
-    public List<LanguagePersonDTO> getMappedPersons(List<Person> persons) {
+    public List<LanguagePersonDTO> getLanguagePersonsDto(List<Person> persons) {
         List<LanguagePersonDTO> mappedPersons = new ArrayList<>();
         persons.forEach(person -> mappedPersons.add(getLanguagePersonDTO(person)));
         return mappedPersons;
