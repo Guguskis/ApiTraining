@@ -7,6 +7,7 @@ import lt.liutikas.model.LanguagePersonDTO;
 import lt.liutikas.model.Person;
 import lt.liutikas.person.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -38,11 +39,9 @@ public class DefaultPersonService implements PersonService {
 
     @Override
     public void create(Person person) throws PersonAlreadyExistsException {
-        Person personFound = repository.findByOfficialId(person.getOfficialId());
-
-        if (personFound == null) {
+        try {
             repository.save(person);
-        } else {
+        } catch (DataIntegrityViolationException e) {
             throw new PersonAlreadyExistsException();
         }
     }
@@ -69,7 +68,7 @@ public class DefaultPersonService implements PersonService {
         peopleToCreate.forEach(person -> {
             try {
                 create(person);
-            } catch (Exception e) {
+            } catch (PersonAlreadyExistsException e) {
                 uncreatedPeople.add(person);
             }
         });
