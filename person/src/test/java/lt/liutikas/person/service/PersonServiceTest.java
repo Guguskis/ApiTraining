@@ -15,7 +15,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 @ContextConfiguration(classes = WebConfig.class)
@@ -53,15 +52,18 @@ public class PersonServiceTest {
 
         service.create(officialIdHolder);
 
-        assertThrows(PersonAlreadyExistsException.class,
-                () -> service.create(usesTakenOfficialId));
+        assertThrows(PersonAlreadyExistsException.class, () -> {
+            service.create(usesTakenOfficialId);
+        });
     }
 
     @Test
     void create_ValidPerson_DoesNotThrowException() {
         Person validPerson = new Person(5, "John");
 
-        assertDoesNotThrow(() -> service.create(validPerson));
+        assertDoesNotThrow(() -> {
+            service.create(validPerson);
+        });
     }
 
 }
