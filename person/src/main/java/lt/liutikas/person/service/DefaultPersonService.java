@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DefaultPersonService implements PersonService {
@@ -53,10 +54,10 @@ public class DefaultPersonService implements PersonService {
 
     @Override
     public Person find(long officialId) throws PersonNotFoundException {
-        Person person = repository.findByOfficialId(officialId);
+        Optional<Person> person = Optional.ofNullable(repository.findByOfficialId(officialId));
 
-        if (person != null) {
-            return person;
+        if (person.isPresent()) {
+            return person.get();
         } else {
             throw new PersonNotFoundException();
         }
