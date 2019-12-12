@@ -50,8 +50,8 @@ public class ParsingRoute extends RouteBuilder {
     private Person getParsedPerson(List<String> properties, List<String> row) {
         Person person = new Person();
         for (int i = 0; i < row.size(); i++) {
-            String property = properties.get(i);
-            String value = row.get(i);
+            String property = properties.get(i).toLowerCase().trim();
+            String value = row.get(i).trim();
             setValueOfPerson(person, property, value);
         }
         return person;
@@ -61,13 +61,14 @@ public class ParsingRoute extends RouteBuilder {
         switch (property) {
             case "id":
                 person.setId(Long.parseLong(value));
+                break;
             case "name":
                 person.setName(value);
                 break;
-            case "officialId":
+            case "officialid":
                 person.setOfficialId(Long.parseLong(value));
                 break;
-            case "languageId":
+            case "languageid":
                 person.setLanguageId(Long.parseLong(value));
                 break;
         }
