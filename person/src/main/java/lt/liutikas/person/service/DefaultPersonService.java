@@ -74,10 +74,15 @@ public class DefaultPersonService implements PersonService {
         });
 
         if (!uncreatedPeople.isEmpty()) {
-            StringBuilder builder = new StringBuilder();
-            builder.append("People that couldn't be created:");
-            uncreatedPeople.forEach(builder::append);
-            throw new PersonAlreadyExistsException(builder.toString());
+            String message = getUncreatedPeopleMessage(uncreatedPeople);
+            throw new PersonAlreadyExistsException(message);
         }
+    }
+
+    private String getUncreatedPeopleMessage(List<Person> uncreatedPeople) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("People that couldn't be created:");
+        uncreatedPeople.forEach(builder::append);
+        return builder.toString();
     }
 }
