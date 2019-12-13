@@ -3,7 +3,7 @@ package lt.liutikas.dropbox.route;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 
-public class MainRoute extends RouteBuilder {
+public class MainRouteBuilder extends RouteBuilder {
     private final String ROOT_URL = "http://localhost:8082/api";
     private final String ROOT_FOLDER = "file://dropbox/files";
 

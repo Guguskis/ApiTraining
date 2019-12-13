@@ -9,9 +9,9 @@ import java.nio.charset.MalformedInputException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParsingRoute extends RouteBuilder {
+public class ParsingRouteBuilder extends RouteBuilder {
     @Override
-    public void configure() throws Exception {
+    public void configure() {
         from("direct:parse")
                 .routeId("parse")
                 .process(parsePersons());

@@ -1,7 +1,7 @@
 package lt.liutikas.dropbox;
 
-import lt.liutikas.dropbox.route.MainRoute;
-import lt.liutikas.dropbox.route.ParsingRoute;
+import lt.liutikas.dropbox.route.MainRouteBuilder;
+import lt.liutikas.dropbox.route.ParsingRouteBuilder;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.boot.SpringApplication;
@@ -21,8 +21,8 @@ public class DropboxApplication extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        context.addRoutes(new ParsingRoute());
-        context.addRoutes(new MainRoute());
+        context.addRoutes(new ParsingRouteBuilder());
+        context.addRoutes(new MainRouteBuilder());
     }
 
 
