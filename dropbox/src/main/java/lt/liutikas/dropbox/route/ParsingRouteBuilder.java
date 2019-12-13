@@ -21,9 +21,9 @@ public class ParsingRouteBuilder extends RouteBuilder {
         return new Processor() {
             @Override
             public void process(Exchange exchange) throws Exception {
-                List body = exchange.getIn().getBody(List.class);
+                List<List<String>> body = (List<List<String>>) exchange.getIn().getBody(List.class);
+                ArrayList<Person> parsedPersons;
 
-                ArrayList<Person> parsedPersons = null;
                 try {
                     parsedPersons = tryParse(body);
                 } catch (Exception e) {
@@ -35,8 +35,8 @@ public class ParsingRouteBuilder extends RouteBuilder {
         };
     }
 
-    private ArrayList<Person> tryParse(List body) {
-        List<String> properties = (List<String>) body.get(0);
+    private ArrayList<Person> tryParse(List<List<String>> body) {
+        List<String> properties = body.get(0);
         List<List<String>> unparsedPersons = body.subList(1, body.size());
 
         var parsedPersons = new ArrayList<Person>();

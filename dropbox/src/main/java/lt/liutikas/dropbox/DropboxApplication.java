@@ -24,6 +24,4 @@ public class DropboxApplication extends RouteBuilder {
         context.addRoutes(new ParsingRouteBuilder());
         context.addRoutes(new MainRouteBuilder());
     }
-
-
 }
