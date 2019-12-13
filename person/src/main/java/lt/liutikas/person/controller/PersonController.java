@@ -1,8 +1,9 @@
 package lt.liutikas.person.controller;
 
+import lt.liutikas.dto.CreatePersonDto;
+import lt.liutikas.dto.LanguagePersonDto;
 import lt.liutikas.exception.PersonAlreadyExistsException;
 import lt.liutikas.exception.PersonNotFoundException;
-import lt.liutikas.model.LanguagePersonDTO;
 import lt.liutikas.model.Person;
 import lt.liutikas.person.service.DefaultPersonService;
 import org.springframework.http.HttpStatus;
@@ -34,7 +35,7 @@ public class PersonController {
     }
 
     @GetMapping("/mapped")
-    public List<LanguagePersonDTO> findAllMapped() {
+    public List<LanguagePersonDto> findAllMapped() {
         return service.findAllMapped();
     }
 
@@ -49,7 +50,7 @@ public class PersonController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody Person person) {
+    public void create(@RequestBody CreatePersonDto person) {
         try {
             service.create(person);
         } catch (PersonAlreadyExistsException e) {
@@ -59,7 +60,7 @@ public class PersonController {
 
     @PostMapping("/batch")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createBatch(@RequestBody List<Person> people) {
+    public void createBatch(@RequestBody List<CreatePersonDto> people) {
         try {
             service.create(people);
         } catch (PersonAlreadyExistsException e) {

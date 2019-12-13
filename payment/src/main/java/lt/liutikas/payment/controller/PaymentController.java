@@ -1,7 +1,7 @@
 package lt.liutikas.payment.controller;
 
 import ch.qos.logback.classic.Logger;
-import lt.liutikas.model.CreatePaymentDTO;
+import lt.liutikas.dto.CreatePaymentDto;
 import lt.liutikas.model.Payment;
 import lt.liutikas.payment.service.PaymentService;
 import org.slf4j.LoggerFactory;
@@ -44,7 +44,7 @@ public class PaymentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody CreatePaymentDTO payment) {
+    public void create(@RequestBody CreatePaymentDto payment) {
         try {
             service.create(payment);
         } catch (ResourceAccessException e) {

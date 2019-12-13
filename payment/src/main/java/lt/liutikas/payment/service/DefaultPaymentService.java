@@ -1,7 +1,7 @@
 package lt.liutikas.payment.service;
 
 import ch.qos.logback.classic.Logger;
-import lt.liutikas.model.CreatePaymentDTO;
+import lt.liutikas.dto.CreatePaymentDto;
 import lt.liutikas.model.Payment;
 import lt.liutikas.model.Person;
 import lt.liutikas.payment.repository.PaymentRepository;
@@ -39,19 +39,19 @@ public class DefaultPaymentService implements PaymentService {
     }
 
     @Override
-    public void create(CreatePaymentDTO paymentDTO) {
+    public void create(CreatePaymentDto paymentDto) {
         long personId = 0;
         try {
-            personId = getPersonId(paymentDTO.getPersonOfficialId());
+            personId = getPersonId(paymentDto.getPersonOfficialId());
         } catch (HttpStatusCodeException e) {
             if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
-                postPerson(paymentDTO);
-                personId = getPersonId(paymentDTO.getPersonOfficialId());
+                postPerson(paymentDto);
+                personId = getPersonId(paymentDto.getPersonOfficialId());
             } else {
                 logger.error("Unhandled response status code from Person service", e);
             }
         }
-        createPayment(paymentDTO, personId);
+        createPayment(paymentDto, personId);
     }
 
     private long getPersonId(long officialId) {
@@ -62,14 +62,14 @@ public class DefaultPaymentService implements PaymentService {
                 .getId();
     }
 
-    private void postPerson(CreatePaymentDTO paymentDTO) {
+    private void postPerson(CreatePaymentDto paymentDto) {
         HttpHeaders headers = setupJSONHeaders();
-        HttpEntity<Person> request = setupPersonRequest(paymentDTO, headers);
+        HttpEntity<Person> request = setupPersonRequest(paymentDto, headers);
         restTemplate.postForLocation(PERSON_API_URL, request);
     }
 
-    private HttpEntity<Person> setupPersonRequest(CreatePaymentDTO paymentDTO, HttpHeaders headers) {
-        Person person = new Person(paymentDTO.getPersonOfficialId());
+    private HttpEntity<Person> setupPersonRequest(CreatePaymentDto paymentDto, HttpHeaders headers) {
+        Person person = new Person(paymentDto.getPersonOfficialId());
         return new HttpEntity<>(person, headers);
     }
 
@@ -79,8 +79,8 @@ public class DefaultPaymentService implements PaymentService {
         return headers;
     }
 
-    private void createPayment(CreatePaymentDTO paymentDTO, long personId) {
-        Payment payment = new Payment(personId, paymentDTO.getAmount());
+    private void createPayment(CreatePaymentDto paymentDto, long personId) {
+        Payment payment = new Payment(personId, paymentDto.getAmount());
         repository.save(payment);
     }
 

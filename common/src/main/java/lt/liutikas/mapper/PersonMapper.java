@@ -1,6 +1,7 @@
 package lt.liutikas.mapper;
 
-import lt.liutikas.model.LanguagePersonDTO;
+import lt.liutikas.dto.CreatePersonDto;
+import lt.liutikas.dto.LanguagePersonDto;
 import lt.liutikas.model.Person;
 import org.springframework.stereotype.Component;
 
@@ -9,11 +10,11 @@ import java.util.HashMap;
 import java.util.List;
 
 @Component
-public class PersonLanguageMapper {
+public class PersonMapper {
 
     private HashMap<Long, String> languages = new HashMap<>();
 
-    public PersonLanguageMapper() {
+    public PersonMapper() {
         languages.put(1L, "Lithuanian");
         languages.put(2L, "English");
         languages.put(3L, "Indian");
@@ -21,15 +22,22 @@ public class PersonLanguageMapper {
         languages.put(5L, "Gibberish");
     }
 
+    public Person toPerson(CreatePersonDto dto) {
+        Person person = new Person();
+        person.setName(dto.getName());
+        person.setOfficialId(dto.getOfficialId());
+        person.setLanguageId(dto.getLanguagelId());
+        return person;
+    }
 
-    public List<LanguagePersonDTO> getLanguagePersonsDto(List<Person> persons) {
-        List<LanguagePersonDTO> mappedPersons = new ArrayList<>();
-        persons.forEach(person -> mappedPersons.add(getLanguagePersonDTO(person)));
+    public List<LanguagePersonDto> getLanguagePersonsDto(List<Person> persons) {
+        List<LanguagePersonDto> mappedPersons = new ArrayList<>();
+        persons.forEach(person -> mappedPersons.add(getLanguagePersonDto(person)));
         return mappedPersons;
     }
 
-    private LanguagePersonDTO getLanguagePersonDTO(Person person) {
-        LanguagePersonDTO mappedPerson = new LanguagePersonDTO();
+    private LanguagePersonDto getLanguagePersonDto(Person person) {
+        LanguagePersonDto mappedPerson = new LanguagePersonDto();
         String language = languages.get(person.getLanguageId());
 
         mappedPerson.setId(person.getId());

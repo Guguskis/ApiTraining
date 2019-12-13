@@ -1,6 +1,6 @@
-package lt.liutikas.model;
+package lt.liutikas.dto;
 
-public class CreatePaymentDTO {
+public class CreatePaymentDto {
     private long amount;
     private long personOfficialId;
 

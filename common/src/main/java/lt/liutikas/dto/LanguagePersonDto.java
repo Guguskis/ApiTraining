@@ -1,6 +1,6 @@
-package lt.liutikas.model;
+package lt.liutikas.dto;
 
-public class LanguagePersonDTO {
+public class LanguagePersonDto {
     public long getId() {
         return id;
     }
