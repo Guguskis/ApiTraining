@@ -26,7 +26,7 @@ public class PersonMapper {
         Person person = new Person();
         person.setName(dto.getName());
         person.setOfficialId(dto.getOfficialId());
-        person.setLanguageId(dto.getLanguagelId());
+        person.setLanguageId(dto.getLanguageId());
         return person;
     }
 

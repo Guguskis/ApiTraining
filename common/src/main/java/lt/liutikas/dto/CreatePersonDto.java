@@ -3,7 +3,7 @@ package lt.liutikas.dto;
 public class CreatePersonDto {
     private String name;
     private long officialId;
-    private long languagelId;
+    private long languageId;
 
     public CreatePersonDto(long officialId, String name) {
         this.name = name;
@@ -26,12 +26,12 @@ public class CreatePersonDto {
         this.officialId = officialId;
     }
 
-    public long getLanguagelId() {
-        return languagelId;
+    public long getLanguageId() {
+        return languageId;
     }
 
-    public void setLanguagelId(long languagelId) {
-        this.languagelId = languagelId;
+    public void setLanguageId(long languageId) {
+        this.languageId = languageId;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class CreatePersonDto {
         return "CreatePersonDto{" +
                 "name='" + name + '\'' +
                 ", officialId=" + officialId +
-                ", languagelId=" + languagelId +
+                ", languageId=" + languageId +
                 '}';
     }
 }
