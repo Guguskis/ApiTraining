@@ -5,6 +5,11 @@ public class CreatePersonDto {
     private long officialId;
     private long languagelId;
 
+    public CreatePersonDto(long officialId, String name) {
+        this.name = name;
+        this.officialId = officialId;
+    }
+
     public String getName() {
         return name;
     }

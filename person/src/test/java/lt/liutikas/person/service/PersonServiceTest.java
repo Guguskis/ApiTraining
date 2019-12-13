@@ -1,5 +1,6 @@
 package lt.liutikas.person.service;
 
+import lt.liutikas.dto.CreatePersonDto;
 import lt.liutikas.exception.PersonAlreadyExistsException;
 import lt.liutikas.exception.PersonNotFoundException;
 import lt.liutikas.model.Person;
@@ -47,8 +48,8 @@ public class PersonServiceTest {
 
     @Test
     void create_OfficialIdTaken_ThrowsException() throws PersonAlreadyExistsException {
-        Person officialIdHolder = new Person(5, "John");
-        Person usesTakenOfficialId = new Person(5, "Susie");
+        CreatePersonDto officialIdHolder = new CreatePersonDto(5, "John");
+        CreatePersonDto usesTakenOfficialId = new CreatePersonDto(5, "Susie");
 
         service.create(officialIdHolder);
 

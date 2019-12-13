@@ -25,7 +25,7 @@ class ValidationRouteTest {
     private ProducerTemplate template;
 
     @AfterEach
-    public void tearDown() throws Exception {
+    public void tearDown() {
         mock.reset();
     }
 
