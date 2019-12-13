@@ -5,6 +5,9 @@ public class CreatePersonDto {
     private long officialId;
     private long languageId;
 
+    public CreatePersonDto() {
+    }
+
     public CreatePersonDto(long officialId, String name) {
         this.name = name;
         this.officialId = officialId;
