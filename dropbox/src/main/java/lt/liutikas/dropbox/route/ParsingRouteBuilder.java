@@ -4,12 +4,15 @@ import lt.liutikas.model.Person;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.nio.charset.MalformedInputException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ParsingRouteBuilder extends RouteBuilder {
+    private static final Logger log = LoggerFactory.getLogger(ParsingRouteBuilder.class);
+
     @Override
     public void configure() {
         from("direct:parse")
@@ -20,14 +23,14 @@ public class ParsingRouteBuilder extends RouteBuilder {
     private Processor parsePersons() {
         return new Processor() {
             @Override
-            public void process(Exchange exchange) throws Exception {
+            public void process(Exchange exchange) {
                 List<List<String>> body = (List<List<String>>) exchange.getIn().getBody(List.class);
-                ArrayList<Person> parsedPersons;
+                ArrayList<Person> parsedPersons = null;
 
                 try {
                     parsedPersons = tryParse(body);
                 } catch (Exception e) {
-                    throw new MalformedInputException(0);
+                    log.info(e.getMessage());
                 }
 
                 exchange.getIn().setBody(parsedPersons);
