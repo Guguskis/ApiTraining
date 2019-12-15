@@ -37,4 +37,5 @@ public class LanguagePersonDto {
     private long officialId;
     private String name;
     private String language;
+    // MM: class variables should be higher than all methods
 }

@@ -27,6 +27,7 @@
         <dependency>
             <groupId>lt.liutikas</groupId>
             <artifactId>common</artifactId>
+            <!--MM: hardcoded version-->
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

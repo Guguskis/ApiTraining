@@ -21,9 +21,11 @@ import java.util.stream.Collectors;
 @Service
 public class DefaultPaymentService implements PaymentService {
 
+    // MM: hardcoded URL. Should be in properties file
     private static final String PERSON_API_URL = "http://localhost:8082/api/persons/";
     private static final Logger logger = (Logger) LoggerFactory.getLogger(DefaultPaymentService.class);
 
+    // MM: should be marked as final
     private PaymentRepository repository;
     private RestTemplate restTemplate;
 
@@ -51,6 +53,7 @@ public class DefaultPaymentService implements PaymentService {
                 logger.error("Unhandled response status code from Person service", e);
             }
         }
+        // MM: if person creation fails then will be created payment with persinId=0, is it ok?
         createPayment(paymentDto, personId);
     }
 
@@ -68,6 +71,7 @@ public class DefaultPaymentService implements PaymentService {
         restTemplate.postForLocation(PERSON_API_URL, request);
     }
 
+    // MM: createPersonRequest method name would be better
     private HttpEntity<Person> setupPersonRequest(CreatePaymentDto paymentDto, HttpHeaders headers) {
         Person person = new Person(paymentDto.getPersonOfficialId());
         return new HttpEntity<>(person, headers);

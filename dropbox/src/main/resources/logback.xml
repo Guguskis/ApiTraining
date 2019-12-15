@@ -8,6 +8,7 @@
         </layout>
     </appender>
 
+    <!--MM: why mkyong?-->
     <logger name="com.mkyong" level="debug" additivity="false">
         <appender-ref ref="CONSOLE"/>
     </logger>

@@ -24,11 +24,12 @@ import java.util.List;
 public class PaymentController {
 
     private static Logger logger;
-
+    // MM: That is difference from this line: private static Logger logger = (Logger) LoggerFactory.getLogger(PaymentController.class); ?
     static {
         logger = (Logger) LoggerFactory.getLogger(PaymentController.class);
     }
 
+    // MM: should be marked as final
     private PaymentService service;
 
 

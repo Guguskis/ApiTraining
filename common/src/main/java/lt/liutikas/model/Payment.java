@@ -53,4 +53,6 @@ public class Payment {
     public LocalDateTime getCreated() {
         return created;
     }
+
+    // MM: Person class has toString method but this class doesn't
 }

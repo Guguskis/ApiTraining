@@ -47,6 +47,7 @@
         <dependency>
             <groupId>lt.liutikas</groupId>
             <artifactId>common</artifactId>
+            <!--MM: version should be in properties-->
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <!--Logging-->

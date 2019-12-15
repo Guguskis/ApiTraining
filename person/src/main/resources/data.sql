@@ -5,5 +5,6 @@
 -- INSERT INTO  PERSON (OFFICIALID, NAME, LANGUAGEID) VALUES (5, 'Vytautas', 2);
 -- INSERT INTO  PERSON (OFFICIALID, NAME, LANGUAGEID) VALUES (6, 'Laurynas', 4);
 SELECT 1;
+-- MM: what is purpose of this file?
 
 -- Id generation does not work properly if INSERT lines are executed

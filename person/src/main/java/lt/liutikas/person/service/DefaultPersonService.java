@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 @Service
 public class DefaultPersonService implements PersonService {
 
+    // MM: these class variables should be marked as final
     private PersonRepository repository;
     private PersonMapper mapper;
 
