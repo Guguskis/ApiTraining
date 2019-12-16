@@ -5,10 +5,6 @@ public class CreatePersonDto {
     private long officialId;
     private long languageId;
 
-    // MM: Is this constructor necessary?
-    public CreatePersonDto() {
-    }
-
     public CreatePersonDto(long officialId, String name) {
         this.name = name;
         this.officialId = officialId;

@@ -11,19 +11,20 @@
 
     <artifactId>dropbox</artifactId>
 
+    <properties>
+        <project.version>0.0.1-SNAPSHOT</project.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>lt.liutikas</groupId>
             <artifactId>common</artifactId>
-            <!--MM: hardcoded version-->
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
-
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
-
         <!--Logging-->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -50,28 +51,13 @@
             <!--MM: hardcoded version-->
             <version>3.0.0-RC3</version>
         </dependency>
-
-
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jackson-starter</artifactId>
             <!--MM: hardcoded version-->
-            <version>3.0.0-RC1</version>
+            <version>3.0.0-RC3</version>
             <!-- use the same version as your Camel core version -->
         </dependency>
-
-        <!--MM: remove commented code-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.apache.camel</groupId>-->
-        <!--            <artifactId>camel-test-spring</artifactId>-->
-        <!--            <version>3.0.0-RC3</version>-->
-        <!--        </dependency>-->
-
-
-        <!--        <dependency>-->
-        <!--            <groupId>org.apache.camel</groupId>-->
-        <!--            <artifactId>camel-file-watch-starter</artifactId>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-csv-starter</artifactId>
@@ -99,17 +85,9 @@
             <!--MM: hardcoded version-->
             <version>5.2.0.RELEASE</version>
         </dependency>
-
-        <!--MM: remove commented code-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.apache.camel</groupId>-->
-        <!--            <artifactId>camel-beanio-starter</artifactId>-->
-        <!--            <version>3.0.0-RC1</version>-->
-        <!--        </dependency>-->
-
     </dependencies>
-    <build>
 
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

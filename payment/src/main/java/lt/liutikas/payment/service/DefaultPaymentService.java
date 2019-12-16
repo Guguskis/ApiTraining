@@ -25,9 +25,8 @@ public class DefaultPaymentService implements PaymentService {
     private static final String PERSON_API_URL = "http://localhost:8082/api/persons/";
     private static final Logger logger = (Logger) LoggerFactory.getLogger(DefaultPaymentService.class);
 
-    // MM: should be marked as final
-    private PaymentRepository repository;
-    private RestTemplate restTemplate;
+    private final PaymentRepository repository;
+    private final RestTemplate restTemplate;
 
     @Autowired
     public DefaultPaymentService(PaymentRepository repository, RestTemplate restTemplate) {
@@ -67,12 +66,11 @@ public class DefaultPaymentService implements PaymentService {
 
     private void postPerson(CreatePaymentDto paymentDto) {
         HttpHeaders headers = setupJSONHeaders();
-        HttpEntity<Person> request = setupPersonRequest(paymentDto, headers);
+        HttpEntity<Person> request = createPersonRequest(paymentDto, headers);
         restTemplate.postForLocation(PERSON_API_URL, request);
     }
 
-    // MM: createPersonRequest method name would be better
-    private HttpEntity<Person> setupPersonRequest(CreatePaymentDto paymentDto, HttpHeaders headers) {
+    private HttpEntity<Person> createPersonRequest(CreatePaymentDto paymentDto, HttpHeaders headers) {
         Person person = new Person(paymentDto.getPersonOfficialId());
         return new HttpEntity<>(person, headers);
     }

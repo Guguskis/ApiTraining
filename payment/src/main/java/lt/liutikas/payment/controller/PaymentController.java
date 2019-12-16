@@ -23,14 +23,8 @@ import java.util.List;
 @RequestMapping("/api/payments")
 public class PaymentController {
 
-    private static Logger logger;
-    // MM: That is difference from this line: private static Logger logger = (Logger) LoggerFactory.getLogger(PaymentController.class); ?
-    static {
-        logger = (Logger) LoggerFactory.getLogger(PaymentController.class);
-    }
-
-    // MM: should be marked as final
-    private PaymentService service;
+    private static final Logger logger = (Logger) LoggerFactory.getLogger(PaymentController.class);
+    private final PaymentService service;
 
 
     @Autowired

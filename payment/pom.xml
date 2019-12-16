@@ -11,6 +11,10 @@
 
     <artifactId>payment</artifactId>
 
+    <properties>
+        <project.version>0.0.1-SNAPSHOT</project.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -27,8 +31,7 @@
         <dependency>
             <groupId>lt.liutikas</groupId>
             <artifactId>common</artifactId>
-            <!--MM: hardcoded version-->
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -16,6 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 @ContextConfiguration(classes = WebConfig.class)
@@ -60,7 +61,7 @@ public class PersonServiceTest {
 
     @Test
     void create_ValidPerson_DoesNotThrowException() {
-        Person validPerson = new Person(5, "John");
+        CreatePersonDto validPerson = new CreatePersonDto(5, "John");
 
         assertDoesNotThrow(() -> {
             service.create(validPerson);

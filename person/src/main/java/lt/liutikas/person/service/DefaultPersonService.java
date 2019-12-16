@@ -19,9 +19,8 @@ import java.util.stream.Collectors;
 @Service
 public class DefaultPersonService implements PersonService {
 
-    // MM: these class variables should be marked as final
-    private PersonRepository repository;
-    private PersonMapper mapper;
+    private final PersonRepository repository;
+    private final PersonMapper mapper;
 
     @Autowired
     public DefaultPersonService(PersonRepository repository, PersonMapper languageMapper) {

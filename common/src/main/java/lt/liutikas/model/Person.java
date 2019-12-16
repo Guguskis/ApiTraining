@@ -74,12 +74,13 @@ public class Person {
         return false;
     }
 
-    // MM: why not all class variables added here?
     @Override
     public String toString() {
         return "Person{" +
-                "officialId=" + officialId +
+                "id=" + id +
+                ", officialId=" + officialId +
                 ", name='" + name + '\'' +
+                ", languageId=" + languageId +
                 '}';
     }
 }

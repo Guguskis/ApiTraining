@@ -54,5 +54,13 @@ public class Payment {
         return created;
     }
 
-    // MM: Person class has toString method but this class doesn't
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "id=" + id +
+                ", amount=" + amount +
+                ", personId=" + personId +
+                ", created=" + created +
+                '}';
+    }
 }
