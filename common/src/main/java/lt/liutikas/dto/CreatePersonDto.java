@@ -5,6 +5,10 @@ public class CreatePersonDto {
     private long officialId;
     private long languageId;
 
+    public CreatePersonDto() {
+        // Jackson requires default constructor
+    }
+
     public CreatePersonDto(long officialId, String name) {
         this.name = name;
         this.officialId = officialId;

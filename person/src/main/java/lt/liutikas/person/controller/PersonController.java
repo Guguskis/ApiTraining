@@ -44,7 +44,7 @@ public class PersonController {
         try {
             return service.find(officialId);
         } catch (PersonNotFoundException e) {
-            throw new ResponseStatusException((HttpStatus.NOT_FOUND), "Provide correct Person official ID", e);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Person with given officialId does not exist.");
         }
     }
 
