@@ -37,3 +37,4 @@ build/
 .cmd
 /logs/
 /payment/logs/
+/dropbox/files/
