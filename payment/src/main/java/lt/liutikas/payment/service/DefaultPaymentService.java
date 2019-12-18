@@ -8,6 +8,7 @@ import lt.liutikas.model.Person;
 import lt.liutikas.payment.repository.PaymentRepository;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
@@ -18,9 +19,10 @@ import java.util.stream.Collectors;
 @Service
 public class DefaultPaymentService implements PaymentService {
 
-    // MM: hardcoded URL. Should be in properties file
-    private static final String PERSON_API_URL = "http://localhost:8082/api/persons/";
-    private static final Logger logger = (Logger) LoggerFactory.getLogger(DefaultPaymentService.class);
+    private final Logger logger = (Logger) LoggerFactory.getLogger(DefaultPaymentService.class);
+
+    @Value("${person.api.url}")
+    private String PERSON_API_URL;
 
     private final PaymentRepository repository;
     private final RestTemplate restTemplate;
