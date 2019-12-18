@@ -15,7 +15,7 @@
         <dependency>
             <groupId>lt.liutikas</groupId>
             <artifactId>common</artifactId>
-            <version>${project.version}</version>
+            <version>${payments.api.version}</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -63,10 +63,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-test-spring-junit5</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
         </dependency>
     </dependencies>
 

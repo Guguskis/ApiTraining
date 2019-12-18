@@ -16,8 +16,9 @@
     </modules>
 
     <properties>
-        <project.version>0.0.1-SNAPSHOT</project.version>
-        <spring.version>2.1.3.RELEASE</spring.version>
+        <payments.api.version>0.0.1-SNAPSHOT</payments.api.version>
+        <spring.version>2.1.9.RELEASE</spring.version>
+        <spring-web.version>5.2.2.RELEASE</spring-web.version>
         <h2.version>1.4.200</h2.version>
         <jaxb-api.version>2.3.1</jaxb-api.version>
         <junit-jupiter.version>5.5.2</junit-jupiter.version>
@@ -29,16 +30,10 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <camel.version>3.0.0-RC3</camel.version>
-        <spring-web.version>5.2.0.RELEASE</spring-web.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-web</artifactId>
-                <version>${spring-web.version}</version>
-            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -53,11 +48,6 @@
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>${h2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-parent</artifactId>
-                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>javax.xml.bind</groupId>
@@ -95,11 +85,6 @@
                 <version>${slf4j.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-simple</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
@@ -113,11 +98,6 @@
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-spring-boot</artifactId>
-                <version>${camel.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-file-watch-starter</artifactId>
                 <version>${camel.version}</version>
             </dependency>
             <dependency>
