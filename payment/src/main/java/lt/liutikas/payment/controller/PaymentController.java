@@ -2,6 +2,7 @@ package lt.liutikas.payment.controller;
 
 import ch.qos.logback.classic.Logger;
 import lt.liutikas.dto.CreatePaymentDto;
+import lt.liutikas.exception.PersonNotFoundException;
 import lt.liutikas.model.Payment;
 import lt.liutikas.payment.service.PaymentService;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -23,13 +24,8 @@ import java.util.List;
 @RequestMapping("/api/payments")
 public class PaymentController {
 
-    private static Logger logger;
-
-    static {
-        logger = (Logger) LoggerFactory.getLogger(PaymentController.class);
-    }
-
-    private PaymentService service;
+    private static final Logger logger = (Logger) LoggerFactory.getLogger(PaymentController.class);
+    private final PaymentService service;
 
 
     @Autowired
@@ -47,8 +43,8 @@ public class PaymentController {
     public void create(@RequestBody CreatePaymentDto payment) {
         try {
             service.create(payment);
-        } catch (ResourceAccessException e) {
-            logger.error("Request to Person service took too long.");
+        } catch (PersonNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 

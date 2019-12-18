@@ -1,6 +1,11 @@
 package lt.liutikas.dto;
 
 public class LanguagePersonDto {
+    private long id;
+    private long officialId;
+    private String name;
+    private String language;
+
     public long getId() {
         return id;
     }
@@ -32,9 +37,4 @@ public class LanguagePersonDto {
     public void setLanguage(String language) {
         this.language = language;
     }
-
-    private long id;
-    private long officialId;
-    private String name;
-    private String language;
 }

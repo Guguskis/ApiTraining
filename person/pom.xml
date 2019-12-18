@@ -13,6 +13,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>lt.liutikas</groupId>
+            <artifactId>common</artifactId>
+            <version>${payments.api.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
@@ -44,11 +49,6 @@
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>lt.liutikas</groupId>
-            <artifactId>common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
         <!--Logging-->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -63,8 +63,7 @@
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
         </dependency>
-
-        <!--Camel routing-->
+        <!--Camel-->
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-spring-boot</artifactId>
@@ -83,6 +82,4 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>

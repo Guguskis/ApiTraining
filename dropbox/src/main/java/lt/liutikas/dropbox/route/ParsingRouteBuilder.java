@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParsingRouteBuilder extends RouteBuilder {
-    private static final Logger log = LoggerFactory.getLogger(ParsingRouteBuilder.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ParsingRouteBuilder.class);
 
     @Override
     public void configure() {
@@ -30,7 +30,7 @@ public class ParsingRouteBuilder extends RouteBuilder {
                 try {
                     parsedPersons = tryParse(body);
                 } catch (Exception e) {
-                    log.info(e.getMessage());
+                    LOG.info(e.getMessage());
                 }
 
                 exchange.getIn().setBody(parsedPersons);

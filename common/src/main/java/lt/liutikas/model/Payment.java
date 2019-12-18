@@ -53,4 +53,14 @@ public class Payment {
     public LocalDateTime getCreated() {
         return created;
     }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "id=" + id +
+                ", amount=" + amount +
+                ", personId=" + personId +
+                ", created=" + created +
+                '}';
+    }
 }

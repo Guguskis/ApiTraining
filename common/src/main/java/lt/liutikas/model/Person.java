@@ -77,8 +77,10 @@ public class Person {
     @Override
     public String toString() {
         return "Person{" +
-                "officialId=" + officialId +
+                "id=" + id +
+                ", officialId=" + officialId +
                 ", name='" + name + '\'' +
+                ", languageId=" + languageId +
                 '}';
     }
 }
