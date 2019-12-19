@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Service
 public class DefaultPaymentService implements PaymentService {
 
-    private final Logger logger = (Logger) LoggerFactory.getLogger(DefaultPaymentService.class);
+    private final Logger LOGGER = (Logger) LoggerFactory.getLogger(DefaultPaymentService.class);
 
     @Value("${person.api.url}")
     private String PERSON_API_URL;
@@ -44,6 +44,7 @@ public class DefaultPaymentService implements PaymentService {
             long personId = getPersonId(paymentDto.getPersonOfficialId());
             createPayment(paymentDto, personId);
         } catch (HttpStatusCodeException e) {
+            LOGGER.info("Person was not found", e);
             throw new PersonNotFoundException("Person was not found.");
         }
     }
