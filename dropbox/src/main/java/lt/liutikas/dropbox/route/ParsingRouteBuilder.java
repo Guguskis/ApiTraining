@@ -6,12 +6,14 @@ import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class ParsingRouteBuilder extends RouteBuilder {
-    private static final Logger LOG = LoggerFactory.getLogger(ParsingRouteBuilder.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ParsingRouteBuilder.class);
 
     @Override
     public void configure() {
@@ -30,7 +32,7 @@ public class ParsingRouteBuilder extends RouteBuilder {
                 try {
                     parsedPersons = tryParse(body);
                 } catch (Exception e) {
-                    LOG.info(e.getMessage());
+                    LOGGER.info(e.getMessage());
                 }
 
                 exchange.getIn().setBody(parsedPersons);

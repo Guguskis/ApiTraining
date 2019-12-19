@@ -1,11 +1,9 @@
 package lt.liutikas.payment.controller;
 
-import ch.qos.logback.classic.Logger;
 import lt.liutikas.dto.CreatePaymentDto;
 import lt.liutikas.exception.PersonNotFoundException;
 import lt.liutikas.model.Payment;
 import lt.liutikas.payment.service.PaymentService;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,10 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/payments")
 public class PaymentController {
-
-    private static final Logger logger = (Logger) LoggerFactory.getLogger(PaymentController.class);
     private final PaymentService service;
-
 
     @Autowired
     public PaymentController(PaymentService service) {
