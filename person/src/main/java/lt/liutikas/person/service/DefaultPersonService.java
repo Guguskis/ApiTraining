@@ -64,13 +64,15 @@ public class DefaultPersonService implements PersonService {
     @Override
     public void create(List<CreatePersonDto> personsDto) throws PersonAlreadyExistsException {
         List<CreatePersonDto> uncreatedPeople = new ArrayList<>();
-        personsDto.forEach(personDto -> {
+
+        for (CreatePersonDto personDto : personsDto) {
             try {
                 create(personDto);
             } catch (PersonAlreadyExistsException e) {
                 uncreatedPeople.add(personDto);
             }
-        });
+
+        }
 
         if (!uncreatedPeople.isEmpty()) {
             String message = getUncreatedPeopleMessage(uncreatedPeople);

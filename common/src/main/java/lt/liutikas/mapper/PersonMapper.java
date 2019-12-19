@@ -32,7 +32,9 @@ public class PersonMapper {
 
     public List<LanguagePersonDto> getLanguagePersonsDto(List<Person> persons) {
         List<LanguagePersonDto> mappedPersons = new ArrayList<>();
-        persons.forEach(person -> mappedPersons.add(getLanguagePersonDto(person)));
+        for (Person person : persons) {
+            mappedPersons.add(getLanguagePersonDto(person));
+        }
         return mappedPersons;
     }
 

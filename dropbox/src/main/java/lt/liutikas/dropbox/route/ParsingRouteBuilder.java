@@ -44,11 +44,12 @@ public class ParsingRouteBuilder extends RouteBuilder {
         List<String> properties = body.get(0);
         List<List<String>> unparsedPersons = body.subList(1, body.size());
 
-        var parsedPersons = new ArrayList<Person>();
+        ArrayList<Person> parsedPersons = new ArrayList<Person>();
 
-        unparsedPersons.forEach(row -> {
-            parsedPersons.add(getParsedPerson(properties, row));
-        });
+        for (List<String> unparsedPerson : unparsedPersons) {
+            parsedPersons.add(getParsedPerson(properties, unparsedPerson));
+        }
+
         return parsedPersons;
     }
 
