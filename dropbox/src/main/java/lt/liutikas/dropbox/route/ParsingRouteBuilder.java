@@ -27,7 +27,7 @@ public class ParsingRouteBuilder extends RouteBuilder {
             @Override
             public void process(Exchange exchange) {
                 List<List<String>> body = (List<List<String>>) exchange.getIn().getBody(List.class);
-                ArrayList<Person> parsedPersons = null;
+                List<Person> parsedPersons = null;
 
                 try {
                     parsedPersons = tryParse(body);
@@ -40,11 +40,11 @@ public class ParsingRouteBuilder extends RouteBuilder {
         };
     }
 
-    private ArrayList<Person> tryParse(List<List<String>> body) {
+    private List<Person> tryParse(List<List<String>> body) {
         List<String> properties = body.get(0);
         List<List<String>> unparsedPersons = body.subList(1, body.size());
 
-        ArrayList<Person> parsedPersons = new ArrayList<Person>();
+        List<Person> parsedPersons = new ArrayList<>();
 
         for (List<String> unparsedPerson : unparsedPersons) {
             parsedPersons.add(getParsedPerson(properties, unparsedPerson));
