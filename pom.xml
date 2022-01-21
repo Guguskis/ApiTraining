@@ -19,7 +19,7 @@
         <payments.api.version>0.0.1-SNAPSHOT</payments.api.version>
         <spring.version>2.1.9.RELEASE</spring.version>
         <spring-web.version>5.2.2.RELEASE</spring-web.version>
-        <h2.version>1.4.200</h2.version>
+        <h2.version>2.1.210</h2.version>
         <jaxb-api.version>2.3.1</jaxb-api.version>
         <junit-jupiter.version>5.5.2</junit-jupiter.version>
         <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
